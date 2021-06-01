@@ -1,0 +1,20 @@
+.presto-block-video {
+  border-radius: var(--presto-player-border-radius, 0px);
+  overflow: hidden;
+  transform: translateZ(0); // Safari bug
+
+  &.presto-sticky-parent {
+    overflow: auto;
+    transform: none;
+  }
+}
+
+.presto-sticky-parent {
+  z-index: 99998 !important;
+}
+
+.presto-player-fullscreen-open {
+  z-index: 9999999 !important;
+  overflow: visible !important;
+  transform: none !important; // Safari bug
+}

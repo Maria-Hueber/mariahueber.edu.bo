@@ -1,0 +1,20 @@
+/*!
+ * 
+ * Presto Player
+ * 
+ * @author Presto Made, Inc
+ * @version 0.1.0
+ * @link undefined
+ * @license GPL
+ * 
+ * Copyright (c) 2021 Presto Made, Inc
+ * 
+ * This software is released under the GPL License
+ * https://opensource.org/licenses/GPL
+ * 
+ * Compiled with the help of https://wpack.io
+ * A zero setup Webpack Bundler Script for WordPress
+ */
+.presto-block-video{border-radius:var(--presto-player-border-radius,0);overflow:hidden;transform:translateZ(0)}.presto-block-video.presto-sticky-parent{overflow:auto;transform:none}.presto-sticky-parent{z-index:99998!important}.presto-player-fullscreen-open{z-index:9999999!important;overflow:visible!important;transform:none!important}
+
+/*# sourceMappingURL=global-a1293372.css.map*/

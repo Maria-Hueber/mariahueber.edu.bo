@@ -1,0 +1,28 @@
+{
+  "global.css": "player/global-a1293372.css",
+  "global.css.map": "player/global-a1293372.css.map",
+  "global.js": "player/global-cb63282d.js",
+  "global.js.map": "player/global-cb63282d.js.map",
+  "runtime.js": "player/runtime-aede2208.js",
+  "runtime.js.map": "player/runtime-aede2208.js.map",
+  "wpackioEp": {
+    "global": {
+      "assets": {
+        "js": [
+          "player/runtime-aede2208.js",
+          "player/global-cb63282d.js"
+        ],
+        "js.map": [
+          "player/runtime-aede2208.js.map",
+          "player/global-cb63282d.js.map"
+        ],
+        "css": [
+          "player/global-a1293372.css"
+        ],
+        "css.map": [
+          "player/global-a1293372.css.map"
+        ]
+      }
+    }
+  }
+}

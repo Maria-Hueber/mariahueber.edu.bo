@@ -1,0 +1,68 @@
+{
+  "admin.css": "blocks/admin-5e5acebe.css",
+  "admin.css.map": "blocks/admin-5e5acebe.css.map",
+  "admin.js": "blocks/admin-d9019e71.js",
+  "admin.js.map": "blocks/admin-d9019e71.js.map",
+  "blocks/0-3e0d4f08.js": "blocks/0-3e0d4f08.js",
+  "blocks/0-3e0d4f08.js.map": "blocks/0-3e0d4f08.js.map",
+  "blocks/6-ab53567d.js": "blocks/6-ab53567d.js",
+  "blocks/6-ab53567d.js.map": "blocks/6-ab53567d.js.map",
+  "blocks/7-1d4d924f.js": "blocks/7-1d4d924f.js",
+  "blocks/7-1d4d924f.js.map": "blocks/7-1d4d924f.js.map",
+  "blocks/8-7b047922.js": "blocks/8-7b047922.js",
+  "blocks/8-7b047922.js.map": "blocks/8-7b047922.js.map",
+  "blocks/9-1e185194.js": "blocks/9-1e185194.js",
+  "blocks/9-1e185194.js.map": "blocks/9-1e185194.js.map",
+  "front.css": "blocks/front-a1293372.css",
+  "front.css.map": "blocks/front-a1293372.css.map",
+  "front.js": "blocks/front-0a1072b3.js",
+  "front.js.map": "blocks/front-0a1072b3.js.map",
+  "runtime.js": "blocks/runtime-beeca3e6.js",
+  "runtime.js.map": "blocks/runtime-beeca3e6.js.map",
+  "vendors--presto-player--admin.js": "blocks/vendors--presto-player--admin-9bb47460.js",
+  "vendors--presto-player--admin.js.map": "blocks/vendors--presto-player--admin-9bb47460.js.map",
+  "vendors--presto-player--front.js": "blocks/vendors--presto-player--front-f9593989.js",
+  "vendors--presto-player--front.js.map": "blocks/vendors--presto-player--front-f9593989.js.map",
+  "wpackioEp": {
+    "admin": {
+      "assets": {
+        "js": [
+          "blocks/runtime-beeca3e6.js",
+          "blocks/vendors--presto-player--admin-9bb47460.js",
+          "blocks/admin-d9019e71.js"
+        ],
+        "js.map": [
+          "blocks/runtime-beeca3e6.js.map",
+          "blocks/vendors--presto-player--admin-9bb47460.js.map",
+          "blocks/admin-d9019e71.js.map"
+        ],
+        "css": [
+          "blocks/admin-5e5acebe.css"
+        ],
+        "css.map": [
+          "blocks/admin-5e5acebe.css.map"
+        ]
+      }
+    },
+    "front": {
+      "assets": {
+        "js": [
+          "blocks/runtime-beeca3e6.js",
+          "blocks/vendors--presto-player--front-f9593989.js",
+          "blocks/front-0a1072b3.js"
+        ],
+        "js.map": [
+          "blocks/runtime-beeca3e6.js.map",
+          "blocks/vendors--presto-player--front-f9593989.js.map",
+          "blocks/front-0a1072b3.js.map"
+        ],
+        "css": [
+          "blocks/front-a1293372.css"
+        ],
+        "css.map": [
+          "blocks/front-a1293372.css.map"
+        ]
+      }
+    }
+  }
+}
