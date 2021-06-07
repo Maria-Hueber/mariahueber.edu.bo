@@ -1,3 +1,4 @@
+/** @jsx jsx */
 /**
  * WordPress dependencies
  */
@@ -7,13 +8,17 @@ const {
   BaseControl,
   RangeControl,
   TextControl,
+  Button,
   TextareaControl,
+  Notice,
 } = wp.components;
 
 import ChooseProvider from "./parts/ChooseProvider";
 
+import { css, jsx } from "@emotion/core";
+
 export default function ({ state, updateState, className }) {
-  const { email_collection } = state;
+  const { email_collection, cta } = state;
 
   const updateEmailState = (updated) => {
     updateState({
@@ -21,6 +26,16 @@ export default function ({ state, updateState, className }) {
       email_collection: {
         ...email_collection,
         ...updated,
+      },
+    });
+  };
+
+  const disableCTA = () => {
+    updateState({
+      ...state,
+      cta: {
+        ...cta,
+        ...{ enabled: false },
       },
     });
   };
@@ -59,21 +74,45 @@ export default function ({ state, updateState, className }) {
               marks={[
                 {
                   value: 0,
-                  label: "Start",
+                  label: __("Start", "presto-player"),
                 },
                 {
                   value: 50,
-                  label: "50% Watched",
+                  label: __("50% Watched", "presto-player"),
                 },
                 {
                   value: 100,
-                  label: "End",
+                  label: __("End", "presto-player"),
                 },
               ]}
               shiftStep={5}
               value={email_collection?.percentage || 0}
             />
           </BaseControl>
+
+          {cta?.enabled && email_collection?.percentage === cta?.percentage && (
+            <Notice
+              css={css`
+                margin: 0 0 30px 0 !important;
+              `}
+              status="warning"
+              isDismissible={false}
+            >
+              {__(
+                "You already have a Call To Action set display at the same time.",
+                "presto-player"
+              )}
+              <Button
+                onClick={disableCTA}
+                isLink
+                css={css`
+                  margin-top: 10px !important;
+                `}
+              >
+                {__("Disable Call To Action", "presto-player")}
+              </Button>
+            </Notice>
+          )}
 
           <BaseControl className="presto-player__control--large-play">
             <ToggleControl

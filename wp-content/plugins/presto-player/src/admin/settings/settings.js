@@ -3,9 +3,6 @@ const { dispatch, useSelect } = wp.data;
 import apiFetch from "@/shared/services/fetch-wp";
 const root = prestoPlayer.root + prestoPlayer.wpVersionString;
 
-import { pick } from "lodash";
-window.lodash = _.noConflict();
-
 // raw settings
 export function getSettings() {
   return useSelect((select) => {
@@ -16,6 +13,7 @@ export function getSettings() {
 export function filterSettings(settings) {
   const keys = [
     "presto_player_analytics",
+    "presto_player_presets",
     "presto_player_branding",
     "presto_player_bunny_storage_zones",
     "presto_player_bunny_pull_zones",
@@ -23,6 +21,7 @@ export function filterSettings(settings) {
     "presto_player_bunny_stream_public",
     "presto_player_bunny_stream_private",
     "presto_player_google_analytics",
+    "presto_player_general",
     "presto_player_uninstall",
     "presto_player_performance",
     "presto_player_mailchimp",

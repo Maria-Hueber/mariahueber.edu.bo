@@ -121,15 +121,15 @@ export default function ({ state, updateState, className }) {
               marks={[
                 {
                   value: 0,
-                  label: "Start",
+                  label: __("Start", "presto-player"),
                 },
                 {
                   value: 50,
-                  label: "50% Watched",
+                  label: __("50% Watched", "presto-player"),
                 },
                 {
                   value: 100,
-                  label: "End",
+                  label: __("End", "presto-player"),
                 },
               ]}
               shiftStep={5}
@@ -256,6 +256,21 @@ export default function ({ state, updateState, className }) {
                     setColor={(value) =>
                       updateActionBar({
                         button_color: value && value.hex,
+                      })
+                    }
+                  />
+                </Flex>
+              </BaseControl>
+              <BaseControl className="presto-player__control--button-text-color">
+                <Flex>
+                  <BaseControl.VisualLabel>
+                    {__("Button Text Color", "presto-player")}
+                  </BaseControl.VisualLabel>
+                  <ColorPopup
+                    color={action_bar?.button_text_color || '#ffffff'}
+                    setColor={(value) =>
+                      updateActionBar({
+                        button_text_color: value && value.hex,
                       })
                     }
                   />

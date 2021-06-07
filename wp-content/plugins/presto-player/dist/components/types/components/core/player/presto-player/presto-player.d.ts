@@ -17,6 +17,7 @@ export declare class PrestoPlayer {
     srcLang: string;
   }[];
   analytics: boolean;
+  automations: boolean;
   provider: string;
   provider_video_id: string;
   actionBar: ActionBarConfig;
@@ -28,6 +29,7 @@ export declare class PrestoPlayer {
   playsinline: boolean;
   isAdmin: boolean;
   direction?: 'rtl';
+  css?: string;
   /**
    * This element
    */
@@ -49,6 +51,11 @@ export declare class PrestoPlayer {
    * @returns Plyr
    */
   play(): Promise<any>;
+  /**
+   * Play video
+   * @returns Plyr
+   */
+  restart(): Promise<any>;
   /**
    * Pause video
    * @returns Plyr
@@ -151,6 +158,7 @@ export declare class PrestoPlayer {
     src: string;
     ajaxProgress: boolean;
     analytics: boolean;
+    automations: boolean;
     mutedPreview: {
       enabled: boolean;
     };
@@ -159,9 +167,6 @@ export declare class PrestoPlayer {
     settings: string[];
     hideControls: boolean;
     captions: {
-      /**
-       * This element
-       */
       active: boolean;
       language: string;
       update: boolean;
@@ -244,6 +249,7 @@ export declare class PrestoPlayer {
       src: string;
       ajaxProgress: boolean;
       analytics: boolean;
+      automations: boolean;
       mutedPreview: {
         enabled: boolean;
       };
@@ -252,9 +258,6 @@ export declare class PrestoPlayer {
       settings: string[];
       hideControls: boolean;
       captions: {
-        /**
-         * This element
-         */
         active: boolean;
         language: string;
         update: boolean;
@@ -326,6 +329,7 @@ export declare class PrestoPlayer {
    * @returns JSX
    */
   renderVideo(): any;
+  renderCTA(): any;
   /**
    * Render email overlay
    * @returns JSX

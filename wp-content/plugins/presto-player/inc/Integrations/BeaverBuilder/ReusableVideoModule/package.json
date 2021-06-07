@@ -1,0 +1,17 @@
+{
+  "name": "@presto-player/beaver-builder",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start:packages": "npm run watch:packages",
+    "watch:packages": "parcel watch ./src/settings.js --out-dir ./js",
+    "build:packages": "parcel build ./src/settings.js --out-dir ./js --no-source-maps"
+  },
+  "dependencies": {
+    "alpinejs": "^2.8.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "parcel": "^2.0.0-beta.1"
+  }
+}

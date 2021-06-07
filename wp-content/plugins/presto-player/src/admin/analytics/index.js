@@ -1,6 +1,6 @@
 const { render } = wp.element;
 
-import { defineCustomElements } from "../../../web-components/dist/custom-elements";
+import { defineCustomElements } from "@presto-player/components/dist/custom-elements";
 
 defineCustomElements();
 

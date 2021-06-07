@@ -6,8 +6,6 @@ const {
   ToggleControl,
   BaseControl,
   HorizontalRule,
-  SelectControl,
-  TextHighlight,
   __experimentalAlignmentMatrixControl: AlignmentMatrixControl,
 } = wp.components;
 

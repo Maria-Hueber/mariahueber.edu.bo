@@ -8,7 +8,7 @@ class Presets
 {
     protected $table;
 
-    protected $version = 10;
+    protected $version = 11;
 
     protected $name = 'presto_player_presets';
 
@@ -61,6 +61,7 @@ class Presets
             caption_style varchar(155) NULL,
             caption_background varchar(155) NULL,
             is_locked boolean DEFAULT 0 NOT NULL,
+            cta LONGTEXT NOT NULL,
             email_collection LONGTEXT NOT NULL,
             action_bar LONGTEXT NOT NULL,
             created_by bigint(20) unsigned NULL,

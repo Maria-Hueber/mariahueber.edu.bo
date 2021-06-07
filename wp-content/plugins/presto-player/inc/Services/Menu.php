@@ -86,10 +86,13 @@ class Menu
     public function settingsAssets()
     {
         wp_enqueue_media();
+        wp_enqueue_code_editor(['type' => "text/css"]);
+
         $assets =  $this->enqueue->enqueue('settings', 'admin', [
             'js_dep' => [
                 'wp-components',
                 'wp-element',
+                'wp-codemirror',
                 'wp-api',
                 'wp-i18n',
                 'wp-editor',

@@ -1,5 +1,5 @@
 // takes our saved options and transforms them into a format that plyr.io will use
-export default function ({ preset = {}, chapters, branding, src, analytics, blockAttributes = {}, provider = '', provider_video_id = '', youtube, type, isAdmin, i18n, storage = {
+export default function ({ preset = {}, chapters, branding, src, analytics, automations, blockAttributes = {}, provider = '', provider_video_id = '', youtube, type, isAdmin, i18n, storage = {
   enabled: !isAdmin,
   key: `presto-player-${preset.id}`,
 }, }) {
@@ -15,7 +15,8 @@ export default function ({ preset = {}, chapters, branding, src, analytics, bloc
       enabled: false,
     };
   }
-  let playerSettings = Object.assign(Object.assign(Object.assign(Object.assign({ id: blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.id, title: (blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.title) || '', blockAttributes: Object.assign(Object.assign({}, blockAttributes), { type }), src, ajaxProgress: true, analytics, mutedPreview: {
+  let playerSettings = Object.assign(Object.assign(Object.assign(Object.assign({ id: blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.id, title: (blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.title) || '', blockAttributes: Object.assign(Object.assign({}, blockAttributes), { type }), src, ajaxProgress: true, analytics,
+    automations, mutedPreview: {
       enabled: (_b = blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.mutedPreview) === null || _b === void 0 ? void 0 : _b.enabled,
     }, chapters,
     controls, settings: ['captions', 'quality', 'loop', ...((preset === null || preset === void 0 ? void 0 : preset.speed) ? ['speed'] : [])], hideControls: preset === null || preset === void 0 ? void 0 : preset.auto_hide, captions: { active: preset === null || preset === void 0 ? void 0 : preset.captions_enabled, language: 'auto', update: false }, logo: branding === null || branding === void 0 ? void 0 : branding.logo, logo_width: branding === null || branding === void 0 ? void 0 : branding.logo_width, hide_logo: preset === null || preset === void 0 ? void 0 : preset.hide_logo, lazy_load_youtube: preset === null || preset === void 0 ? void 0 : preset.lazy_load_youtube, save_player_position: !!(preset === null || preset === void 0 ? void 0 : preset.save_player_position), sticky_scroll: preset === null || preset === void 0 ? void 0 : preset.sticky_scroll, autoplay: (blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.autoplay) && !((_c = window.wp) === null || _c === void 0 ? void 0 : _c.blocks) ? true : false, playsInline: (blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.playsInline) && !((_d = window.wp) === null || _d === void 0 ? void 0 : _d.blocks) ? true : false }, (provider ? { provider } : {})), (provider_video_id ? { provider_video_id } : {})), ((blockAttributes === null || blockAttributes === void 0 ? void 0 : blockAttributes.poster) ? { poster: blockAttributes.poster } : {})), { invertTime: true, 

@@ -3,6 +3,7 @@ import { Component, Element, h, Host, Listen, Method, Prop, State, Watch } from 
 import createPlayer from './player/create';
 import mutedAutoplay from './player/functions/muted-autoplay';
 import transform from './transform-data';
+import customCSS from './player/functions/custom-css';
 import { getParents } from './util';
 export class PrestoPlayer {
   /**
@@ -12,6 +13,14 @@ export class PrestoPlayer {
   async play() {
     this.shouldLazyLoad = false;
     return this.player.play();
+  }
+  /**
+   * Play video
+   * @returns Plyr
+   */
+  async restart() {
+    this.shouldLazyLoad = false;
+    return this.player.restart();
   }
   /**
    * Pause video
@@ -88,6 +97,7 @@ export class PrestoPlayer {
       chapters: this.chapters,
       branding: this.branding,
       analytics: !!this.analytics,
+      automations: !!this.automations,
       blockAttributes: this.blockAttributes,
       provider: this.provider,
       youtube: this.youtube,
@@ -228,6 +238,7 @@ export class PrestoPlayer {
     const player = await this.createPlayer();
     this.handlePlayerEvents(player);
     this.syncVideoHeight();
+    customCSS(this.el, this.css);
     return player;
   }
   /**
@@ -292,6 +303,18 @@ export class PrestoPlayer {
         return (h("presto-video", { getRef: el => (this.playerEl = el), player: this.player, autoplay: this.autoplay, preload: this.preload, poster: this.poster, playsinline: this.playsinline, src: this.src, tracks: this.tracks }));
     }
   }
+  renderCTA() {
+    var _a;
+    if (!((_a = window === null || window === void 0 ? void 0 : window.prestoPlayer) === null || _a === void 0 ? void 0 : _a.isPremium) || this.isAdmin) {
+      return;
+    }
+    return (h("presto-cta-overlay", { direction: this.direction, player: this.player, preset: this.preset, i18n: this.i18n, onPlayVideo: () => {
+        this.mutedPreview = false;
+        this.play();
+      }, onRewatchVideo: () => {
+        this.mutedPreview = false;
+      }, currentTime: this.currentTime, duration: this.duration }));
+  }
   /**
    * Render email overlay
    * @returns JSX
@@ -320,7 +343,7 @@ export class PrestoPlayer {
   stickyPositionClass() {
     var _a, _b;
     if (!this.isSticky) {
-      return "";
+      return '';
     }
     return !!((_a = this.preset) === null || _a === void 0 ? void 0 : _a.sticky_scroll_position) ? `presto-sticky--${(_b = this.preset) === null || _b === void 0 ? void 0 : _b.sticky_scroll_position.replace(/\s+/g, '-')}` : 'presto-sticky--bottom-right';
   }
@@ -332,6 +355,7 @@ export class PrestoPlayer {
     var _a, _b, _c, _d, _e;
     return (h(Host, { style: { height: this.isSticky ? `${this.videoHeight}px` : 'auto' } },
       h("div", { part: "wrapper", dir: this.direction, class: `presto-player__wrapper fitvidsignore
+          presto-video-id-${this.video_id}
         ${!!this.isSticky ? 'presto-sticky' : ''}
         ${this.stickyPositionClass()}
         ${this.direction === 'rtl' ? 'rtl' : ''}
@@ -342,6 +366,7 @@ export class PrestoPlayer {
         ${this.playClass ? this.playClass : ''}` },
         h("div", null,
           h("slot", { name: "player-start" }),
+          this.renderCTA(),
           this.renderEmailOverlay(),
           h("slot", { name: "player-before-video" }),
           this.renderVideo(),
@@ -562,6 +587,23 @@ export class PrestoPlayer {
       "attribute": "analytics",
       "reflect": false
     },
+    "automations": {
+      "type": "boolean",
+      "mutable": false,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "automations",
+      "reflect": false
+    },
     "provider": {
       "type": "string",
       "mutable": false,
@@ -754,6 +796,23 @@ export class PrestoPlayer {
       },
       "attribute": "direction",
       "reflect": false
+    },
+    "css": {
+      "type": "string",
+      "mutable": false,
+      "complexType": {
+        "original": "string",
+        "resolved": "string",
+        "references": {}
+      },
+      "required": false,
+      "optional": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "css",
+      "reflect": false
     }
   }; }
   static get states() { return {
@@ -769,6 +828,25 @@ export class PrestoPlayer {
   }; }
   static get methods() { return {
     "play": {
+      "complexType": {
+        "signature": "() => Promise<any>",
+        "parameters": [],
+        "references": {
+          "Promise": {
+            "location": "global"
+          }
+        },
+        "return": "Promise<any>"
+      },
+      "docs": {
+        "text": "Play video",
+        "tags": [{
+            "name": "returns",
+            "text": "Plyr"
+          }]
+      }
+    },
+    "restart": {
       "complexType": {
         "signature": "() => Promise<any>",
         "parameters": [],

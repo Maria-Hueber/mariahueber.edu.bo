@@ -130,6 +130,9 @@ class Preset extends Model
                 'type' => 'integer',
                 'default' => 0
             ],
+            'cta' => [
+                'type' => 'array',
+            ],
             'email_collection' => [
                 'type' => 'array',
             ],

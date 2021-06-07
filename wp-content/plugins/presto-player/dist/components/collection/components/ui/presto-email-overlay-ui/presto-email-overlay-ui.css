@@ -129,9 +129,9 @@ h1 {
   font-size: 0.8em;
   font-weight: 600;
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
-  padding: 20px;
+  padding: 4%;
   cursor: pointer;
 }
 

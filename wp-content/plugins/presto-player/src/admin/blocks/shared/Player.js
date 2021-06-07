@@ -1,4 +1,4 @@
-import { PrestoPlayer } from "@/component-library/react/src/components";
+import { PrestoPlayer } from "@presto-player/react";
 
 const { useSelect } = wp.data;
 
@@ -7,6 +7,10 @@ export default ({ src, preset, branding, attributes, adminPreview, type }) => {
 
   const youtube = useSelect((select) => {
     return select("presto-player/player")?.youtube();
+  });
+
+  const css = useSelect((select) => {
+    return select("presto-player/player")?.playerCSS();
   });
 
   const mutedOverlayContent = () => {
@@ -47,6 +51,7 @@ export default ({ src, preset, branding, attributes, adminPreview, type }) => {
     >
       <PrestoPlayer
         src={src}
+        css={css}
         isAdmin={true}
         preload="metadata"
         preset={preset}

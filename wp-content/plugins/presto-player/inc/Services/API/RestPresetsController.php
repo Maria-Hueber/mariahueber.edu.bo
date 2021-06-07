@@ -197,6 +197,48 @@ class RestPresetsController extends \WP_REST_Controller
                 'border_radius' => [
                     'type' => 'integer'
                 ],
+                'cta' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'enabled' => [
+                            'type' => 'boolean'
+                        ],
+                        'percentage' => [
+                            'type' => 'integer'
+                        ],
+                        'show_rewatch' => [
+                            'type' => 'boolean'
+                        ],
+                        'show_skip' => [
+                            'type' => 'boolean'
+                        ],
+                        'headline' => [
+                            'type' => 'string'
+                        ],
+                        'show_button' => [
+                            'type' => 'boolean'
+                        ],
+                        'bottom_text' => [
+                            'type' => 'string'
+                        ],
+                        'button_color' => [
+                            'type' => 'string'
+                        ],
+                        'button_text_color' => [
+                            'type' => 'string'
+                        ],
+                        'button_text' => [
+                            'type' => 'string'
+                        ],
+                        'button_link' => [
+                            'type' => 'object',
+                            'required' => true
+                        ],
+                        'border_radius' => [
+                            'type' => 'integer'
+                        ],
+                    ]
+                ],
                 'email_collection' => [
                     'type' => 'object',
                     'properties' => [
@@ -224,7 +266,7 @@ class RestPresetsController extends \WP_REST_Controller
                         'provider_tag' => [
                             'type' => 'string'
                         ],
-                        'border_radius' => [
+                        'button_radius' => [
                             'type' => 'integer'
                         ],
                         'headline' => [
@@ -266,6 +308,9 @@ class RestPresetsController extends \WP_REST_Controller
                             'type' => 'integer'
                         ],
                         'button_color' => [
+                            'type' => 'string'
+                        ],
+                        'button_text_color' => [
                             'type' => 'string'
                         ],
                         'button_link' => [
@@ -406,7 +451,6 @@ class RestPresetsController extends \WP_REST_Controller
         return new \WP_Error('cant-trash', __('This preset could not be trashed.', 'presto-player'), ['status' => 500]);
     }
 
-
     /**
      * Check if a given request has access to get items
      *
@@ -488,6 +532,29 @@ class RestPresetsController extends \WP_REST_Controller
             ]
         );
 
+        $cta = wp_parse_args(
+            $request['cta'],
+            [
+                'enabled' => false,
+                'percentage' => 100,
+                'show_rewatch' => true,
+                'show_skip' => true,
+                'headline' => '',
+                'bottom_text' => '',
+                'show_button' => true,
+                'button_text' => '',
+                'button_color' => '',
+                'button_text_color' => '',
+                'button_radius' => 0,
+                'button_link' => [
+                    'id' => '',
+                    'url' => '',
+                    'type' => '',
+                    'opensInNewTab' => false,
+                ]
+            ]
+        );
+
         $action_bar = wp_parse_args(
             $request['action_bar'],
             [
@@ -500,6 +567,7 @@ class RestPresetsController extends \WP_REST_Controller
                 'button_text' => '',
                 'button_radius' => 0,
                 'button_color' => '',
+                'button_text_color' => '',
                 'button_link' => [
                     'id' => '',
                     'url' => '',
@@ -537,6 +605,25 @@ class RestPresetsController extends \WP_REST_Controller
             'caption_background' => sanitize_hex_color($request['caption_background']),
             'caption_style' => sanitize_text_field($request['caption_style']),
             'border_radius' => (int) $request['border_radius'],
+            'cta' => [
+                'enabled' => (bool) $cta['enabled'],
+                'percentage' => (int) $cta['percentage'],
+                'show_rewatch' => (bool) $cta['show_rewatch'],
+                'show_skip' => (bool) $cta['show_skip'],
+                'headline' => sanitize_text_field($cta['headline']),
+                'bottom_text' => wp_kses_post($cta['bottom_text']),
+                'show_button' => (bool)$cta['show_button'],
+                'button_text' => sanitize_text_field($cta['button_text']),
+                'button_color' => sanitize_hex_color($cta['button_color']),
+                'button_text_color' => sanitize_hex_color($cta['button_text_color']),
+                'button_link' => [
+                    'id' => sanitize_text_field(wp_kses_post($cta['button_link']['id'])),
+                    'url' => sanitize_text_field(wp_kses_post($cta['button_link']['url'])),
+                    'type' => sanitize_text_field(wp_kses_post($cta['button_link']['type'])),
+                    'opensInNewTab' => (bool) $cta['button_link']['opensInNewTab'],
+                ],
+                'button_radius' => (int) $cta['button_radius'],
+            ],
             'email_collection' => [
                 'enabled' => (bool)$email['enabled'],
                 'behavior' => sanitize_text_field($email['behavior']),
@@ -560,6 +647,7 @@ class RestPresetsController extends \WP_REST_Controller
                 'button_text' => sanitize_text_field(wp_kses_post($action_bar['button_text'])),
                 'button_radius' => (int) $action_bar['button_radius'],
                 'button_color' => sanitize_hex_color($action_bar['button_color']),
+                'button_text_color' => sanitize_hex_color($action_bar['button_text_color']),
                 'button_link' => [
                     'id' => sanitize_text_field(wp_kses_post($action_bar['button_link']['id'])),
                     'url' => sanitize_text_field(wp_kses_post($action_bar['button_link']['url'])),

@@ -146,7 +146,12 @@ class Video extends Model
      */
     public function update($args = [])
     {
-        $args = $this->maybeAutoCreateTitle($args);
+        if (!empty($args['attachment_id']) && !empty($args['title'])) {
+            wp_update_post([
+                'ID' => $args['attachment_id'],
+                'post_title' => $args['title']
+            ]);
+        }
         return parent::update($args);
     }
 }

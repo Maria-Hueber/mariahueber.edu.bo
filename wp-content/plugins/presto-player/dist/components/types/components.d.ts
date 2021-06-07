@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { ActionBarConfig, blockAttributes, BunnyConfig, i18nConfig, MutedOverlay, presetAttributes, prestoBranding, prestoChapters, PrestoConfig, YoutubeConfig } from "./interfaces";
+import { ActionBarConfig, blockAttributes, BunnyConfig, ButtonLinkObject, i18nConfig, MutedOverlay, presetAttributes, prestoBranding, prestoChapters, PrestoConfig, YoutubeConfig } from "./interfaces";
 export namespace Components {
     interface PrestoActionBar {
         "config": ActionBarConfig;
@@ -29,6 +29,32 @@ export namespace Components {
         "src": string;
         "thumbnail": string;
         "tracks": { label: string; src: string; srcLang: string }[];
+    }
+    interface PrestoCtaOverlay {
+        "currentTime": number;
+        "direction"?: 'rtl';
+        "duration": number;
+        "i18n": i18nConfig;
+        "player": any;
+        "preset": presetAttributes;
+        "videoId": number;
+    }
+    interface PrestoCtaOverlayUi {
+        "allowRewatch": boolean;
+        "allowSkip": boolean;
+        "bottomText": string;
+        "buttonLink": ButtonLinkObject;
+        "buttonText": string;
+        "buttonType": 'link' | 'time';
+        "defaultHeadline": string;
+        "direction"?: 'rtl';
+        /**
+          * Props
+         */
+        "headline": string;
+        "rewatchText": string;
+        "showButton": boolean;
+        "skipText": string;
     }
     interface PrestoEmailOverlay {
         "currentTime": number;
@@ -62,12 +88,14 @@ export namespace Components {
     interface PrestoPlayer {
         "actionBar": ActionBarConfig;
         "analytics": boolean;
+        "automations": boolean;
         "autoplay": boolean;
         "blockAttributes": blockAttributes;
         "branding": prestoBranding;
         "bunny": BunnyConfig;
         "chapters": prestoChapters;
         "config": PrestoConfig;
+        "css"?: string;
         "direction"?: 'rtl';
         /**
           * Toggle Fullscreen
@@ -106,6 +134,11 @@ export namespace Components {
         "preset": presetAttributes;
         "provider": string;
         "provider_video_id": string;
+        /**
+          * Play video
+          * @returns Plyr
+         */
+        "restart": () => Promise<any>;
         "src": string;
         /**
           * Pause video
@@ -213,6 +246,18 @@ declare global {
         prototype: HTMLPrestoBunnyElement;
         new (): HTMLPrestoBunnyElement;
     };
+    interface HTMLPrestoCtaOverlayElement extends Components.PrestoCtaOverlay, HTMLStencilElement {
+    }
+    var HTMLPrestoCtaOverlayElement: {
+        prototype: HTMLPrestoCtaOverlayElement;
+        new (): HTMLPrestoCtaOverlayElement;
+    };
+    interface HTMLPrestoCtaOverlayUiElement extends Components.PrestoCtaOverlayUi, HTMLStencilElement {
+    }
+    var HTMLPrestoCtaOverlayUiElement: {
+        prototype: HTMLPrestoCtaOverlayUiElement;
+        new (): HTMLPrestoCtaOverlayUiElement;
+    };
     interface HTMLPrestoEmailOverlayElement extends Components.PrestoEmailOverlay, HTMLStencilElement {
     }
     var HTMLPrestoEmailOverlayElement: {
@@ -283,6 +328,8 @@ declare global {
         "presto-action-bar": HTMLPrestoActionBarElement;
         "presto-action-bar-ui": HTMLPrestoActionBarUiElement;
         "presto-bunny": HTMLPrestoBunnyElement;
+        "presto-cta-overlay": HTMLPrestoCtaOverlayElement;
+        "presto-cta-overlay-ui": HTMLPrestoCtaOverlayUiElement;
         "presto-email-overlay": HTMLPrestoEmailOverlayElement;
         "presto-email-overlay-ui": HTMLPrestoEmailOverlayUiElement;
         "presto-muted-overlay": HTMLPrestoMutedOverlayElement;
@@ -319,6 +366,39 @@ declare namespace LocalJSX {
         "src"?: string;
         "thumbnail"?: string;
         "tracks"?: { label: string; src: string; srcLang: string }[];
+    }
+    interface PrestoCtaOverlay {
+        "currentTime"?: number;
+        "direction"?: 'rtl';
+        "duration"?: number;
+        "i18n"?: i18nConfig;
+        "onPlayVideo"?: (event: CustomEvent<void>) => void;
+        "onRewatchVideo"?: (event: CustomEvent<void>) => void;
+        "player"?: any;
+        "preset"?: presetAttributes;
+        "videoId"?: number;
+    }
+    interface PrestoCtaOverlayUi {
+        "allowRewatch"?: boolean;
+        "allowSkip"?: boolean;
+        "bottomText"?: string;
+        "buttonLink"?: ButtonLinkObject;
+        "buttonText"?: string;
+        "buttonType"?: 'link' | 'time';
+        "defaultHeadline"?: string;
+        "direction"?: 'rtl';
+        /**
+          * Props
+         */
+        "headline"?: string;
+        "onRewatch"?: (event: CustomEvent<void>) => void;
+        /**
+          * Events
+         */
+        "onSkip"?: (event: CustomEvent<void>) => void;
+        "rewatchText"?: string;
+        "showButton"?: boolean;
+        "skipText"?: string;
     }
     interface PrestoEmailOverlay {
         "currentTime"?: number;
@@ -359,12 +439,14 @@ declare namespace LocalJSX {
     interface PrestoPlayer {
         "actionBar"?: ActionBarConfig;
         "analytics"?: boolean;
+        "automations"?: boolean;
         "autoplay"?: boolean;
         "blockAttributes"?: blockAttributes;
         "branding"?: prestoBranding;
         "bunny"?: BunnyConfig;
         "chapters"?: prestoChapters;
         "config"?: PrestoConfig;
+        "css"?: string;
         "direction"?: 'rtl';
         "iconUrl"?: string;
         "isAdmin"?: boolean;
@@ -472,6 +554,8 @@ declare namespace LocalJSX {
         "presto-action-bar": PrestoActionBar;
         "presto-action-bar-ui": PrestoActionBarUi;
         "presto-bunny": PrestoBunny;
+        "presto-cta-overlay": PrestoCtaOverlay;
+        "presto-cta-overlay-ui": PrestoCtaOverlayUi;
         "presto-email-overlay": PrestoEmailOverlay;
         "presto-email-overlay-ui": PrestoEmailOverlayUi;
         "presto-muted-overlay": PrestoMutedOverlay;
@@ -492,6 +576,8 @@ declare module "@stencil/core" {
             "presto-action-bar": LocalJSX.PrestoActionBar & JSXBase.HTMLAttributes<HTMLPrestoActionBarElement>;
             "presto-action-bar-ui": LocalJSX.PrestoActionBarUi & JSXBase.HTMLAttributes<HTMLPrestoActionBarUiElement>;
             "presto-bunny": LocalJSX.PrestoBunny & JSXBase.HTMLAttributes<HTMLPrestoBunnyElement>;
+            "presto-cta-overlay": LocalJSX.PrestoCtaOverlay & JSXBase.HTMLAttributes<HTMLPrestoCtaOverlayElement>;
+            "presto-cta-overlay-ui": LocalJSX.PrestoCtaOverlayUi & JSXBase.HTMLAttributes<HTMLPrestoCtaOverlayUiElement>;
             "presto-email-overlay": LocalJSX.PrestoEmailOverlay & JSXBase.HTMLAttributes<HTMLPrestoEmailOverlayElement>;
             "presto-email-overlay-ui": LocalJSX.PrestoEmailOverlayUi & JSXBase.HTMLAttributes<HTMLPrestoEmailOverlayUiElement>;
             "presto-muted-overlay": LocalJSX.PrestoMutedOverlay & JSXBase.HTMLAttributes<HTMLPrestoMutedOverlayElement>;

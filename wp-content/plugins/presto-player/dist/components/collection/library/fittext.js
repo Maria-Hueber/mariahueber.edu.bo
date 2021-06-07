@@ -10,12 +10,12 @@
  * Date: Tue Jan 12 2016 10:03:36 GMT-0600 (CST)
  */
 
-const extend = function (obj, ext) {
+const extend = (obj, ext) => {
   for (var key in ext) if (ext.hasOwnProperty(key)) obj[key] = ext[key];
   return obj;
 };
 
-export default function (el, kompressor, options) {
+export default (el, kompressor, options) => {
   var settings = extend(
     {
       minFontSize: -1 / 0,
@@ -24,10 +24,10 @@ export default function (el, kompressor, options) {
     options,
   );
 
-  var fit = function (el) {
-    var compressor = kompressor || 1;
+  const fit = function (el) {
+    const compressor = kompressor || 1;
 
-    var resizer = function () {
+    const resizer = function () {
       el.style.fontSize = Math.max(Math.min(el.clientWidth / (compressor * 10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)) + 'px';
     };
 
@@ -39,19 +39,19 @@ export default function (el, kompressor, options) {
       const module = import('@juggle/resize-observer').then(() => {
         window.ResizeObserver = module.ResizeObserver;
         // Bind events
-        var ro = new ResizeObserver(resizer);
+        const ro = new ResizeObserver(resizer);
         ro.observe(el);
       });
     } else {
       // Bind events
-      var ro = new ResizeObserver(resizer);
+      const ro = new ResizeObserver(resizer);
       ro.observe(el);
     }
   };
 
-  if (el.length) for (var i = 0; i < el.length; i++) fit(el[i]);
+  if (el.length) for (let i = 0; i < el.length; i++) fit(el[i]);
   else fit(el);
 
   // return set of elements
   return el;
-}
+};

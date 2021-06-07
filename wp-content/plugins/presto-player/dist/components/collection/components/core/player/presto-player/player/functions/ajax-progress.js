@@ -1,54 +1,25 @@
-let fetchedNonce = false;
-let fetchingNonce = false;
+const namespace = 'presto-player.progress';
 let visit_time = Date.now();
-
+let nonce;
 /**
  * Sends an updated ajax progress event for plugins to hook into
  */
-export default () => {
-  let nonce;
-
-  // get nonce when the player starts playing
-  wp.hooks.addAction('presto.playerPlaying', 'presto-player', () => {
-    wp.hooks.doAction('presto.playerGetNonce');
-  });
-
-  // get nonce refresh
-  wp.hooks.addAction('presto.playerGetNonce', 'presto-player', () => {
-    // bail if we are already getting it or got it
-    if (fetchedNonce || fetchingNonce) {
-      return;
-    }
-
-    // we're fetching
-    fetchingNonce = true;
-
-    // fetch it
-    fetch(`${window?.prestoPlayer?.ajaxurl}?action=presto_refresh_progress_nonce`)
-      .then(status)
-      .then(response => response.json())
-      .then(({ data }) => {
-        nonce = data;
-        wp.hooks.doAction('presto.nonceRefreshed', nonce);
-        // we got it
-        fetchedNonce = true;
-      })
-      .catch(function (error) {
-        console.log('Request failed', error);
-      })
-      .finally(() => {
-        // we're done fetching
-        fetchingNonce = false;
-      });
-  });
-
+export default player => {
+  var _a, _b;
+  // automations are disabled
+  if (!player.automations) {
+    return;
+  }
+  // set nonce when fetched
+  if (!((_b = (_a = window === null || window === void 0 ? void 0 : window.wp) === null || _a === void 0 ? void 0 : _a.hooks) === null || _b === void 0 ? void 0 : _b.hasAction('presto.nonceRefreshed', namespace))) {
+    window.wp.hooks.addAction('presto.nonceRefreshed', namespace, newNonce => {
+      nonce = newNonce;
+    });
+  }
   // on time update, maybe send time update
-  wp.hooks.addAction('presto.playerTimeUpdate', 'presto-player', sendTimeUpdate);
-
-  wp.hooks.addAction('presto.playerEnded', 'presto-player', plyr => {
-    sendTimeUpdate(plyr, 100);
-  });
-
+  window === null || window === void 0 ? void 0 : window.wp.hooks.addAction('presto.playerTimeUpdate', 'presto-player', sendTimeUpdate);
+  // be sure to mark complete on end
+  window === null || window === void 0 ? void 0 : window.wp.hooks.addAction('presto.playerEnded', 'presto-player', plyr => sendTimeUpdate(plyr, 100));
   let watched = {
     0: false,
     10: false,
@@ -62,68 +33,64 @@ export default () => {
     90: false,
     100: false,
   };
-
   function sendTimeUpdate(player, percent = null) {
+    var _a;
     // need to send nonce
     if (!nonce) {
       return;
     }
-
     // bail if progress is not turned on
-    if (!player?.config?.ajaxProgress) {
+    if (!((_a = player === null || player === void 0 ? void 0 : player.config) === null || _a === void 0 ? void 0 : _a.ajaxProgress)) {
       return;
     }
-
     if (!percent) {
       percent = (parseFloat(player.currentTime) / parseFloat(player.duration)) * 100;
     }
-
     player.watched = player.watched || {};
-    Object.keys(watched).forEach(marker => {
-      marker = parseInt(marker);
-      if (!player.watched[marker] && percent >= parseInt(marker)) {
+    Object.keys(watched).forEach(m => {
+      var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+      const marker = parseInt(m);
+      if (!player.watched[marker] && percent >= marker) {
         player.watched[marker] = true;
-
         let formData = new FormData();
-
         formData.append('action', 'presto_player_progress_percent');
-        formData.append('id', player?.config?.id);
-        formData.append('percent', marker);
-        formData.append('visit_time', visit_time);
+        formData.append('id', (_a = player === null || player === void 0 ? void 0 : player.config) === null || _a === void 0 ? void 0 : _a.id);
+        formData.append('percent', marker.toString());
+        formData.append('visit_time', visit_time.toString());
         formData.append('nonce', nonce);
-
-        if (window?.prestoPlayer?.debug) {
+        if ((_b = window === null || window === void 0 ? void 0 : window.prestoPlayer) === null || _b === void 0 ? void 0 : _b.debug) {
           console.log(`${marker} percent watched.`);
         }
-
-        if (!window?.prestoPlayer?.debug_navigator) {
-          let result = navigator.sendBeacon(window?.prestoPlayer?.ajaxurl, formData);
-          if (window?.prestoPlayer?.debug) {
+        if (!((_c = window === null || window === void 0 ? void 0 : window.prestoPlayer) === null || _c === void 0 ? void 0 : _c.debug_navigator)) {
+          let result = navigator.sendBeacon((_d = window === null || window === void 0 ? void 0 : window.prestoPlayer) === null || _d === void 0 ? void 0 : _d.ajaxurl, formData);
+          if ((_e = window === null || window === void 0 ? void 0 : window.prestoPlayer) === null || _e === void 0 ? void 0 : _e.debug) {
             if (result) {
               console.log('Successfully queued progress:', {
-                id: player?.config?.id,
+                id: (_f = player === null || player === void 0 ? void 0 : player.config) === null || _f === void 0 ? void 0 : _f.id,
                 percent: marker,
                 visit_time,
                 nonce,
               });
-            } else {
+            }
+            else {
               console.log('Failed to queue progress', {
-                id: player?.config?.id,
+                id: (_g = player === null || player === void 0 ? void 0 : player.config) === null || _g === void 0 ? void 0 : _g.id,
                 percent: marker,
                 visit_time,
                 nonce,
               });
             }
           }
-        } else {
-          jQuery.ajax({
+        }
+        else {
+          window.jQuery.ajax({
             type: 'POST',
-            url: window?.prestoPlayer?.ajaxurl,
+            url: (_h = window === null || window === void 0 ? void 0 : window.prestoPlayer) === null || _h === void 0 ? void 0 : _h.ajaxurl,
             dataType: 'json',
             cache: false,
             data: {
               action: 'presto_player_progress_percent',
-              id: player?.config?.id,
+              id: (_j = player === null || player === void 0 ? void 0 : player.config) === null || _j === void 0 ? void 0 : _j.id,
               visit_time,
               percent: marker,
               nonce,

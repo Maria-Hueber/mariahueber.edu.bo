@@ -51,7 +51,7 @@ class RestSettingsController extends \WP_REST_Settings_Controller
         $rest_options = array();
 
         foreach (get_registered_settings() as $name => $args) {
-            if (!in_array($name, ['presto_player_branding', 'presto_player_youtube'])) {
+            if (!in_array($name, ['presto_player_branding', 'presto_player_youtube', 'presto_player_presets'])) {
                 continue;
             }
 
@@ -87,9 +87,9 @@ class RestSettingsController extends \WP_REST_Settings_Controller
             }
 
             /*
-			 * Allow the supported types for settings, as we don't want invalid types
-			 * to be updated with arbitrary values that we can't do decent sanitizing for.
-			 */
+             * Allow the supported types for settings, as we don't want invalid types
+             * to be updated with arbitrary values that we can't do decent sanitizing for.
+             */
             if (!in_array($rest_args['schema']['type'], array('number', 'integer', 'string', 'boolean', 'array', 'object'), true)) {
                 continue;
             }

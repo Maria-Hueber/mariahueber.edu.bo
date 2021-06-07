@@ -1,5 +1,5 @@
 import { PrestoConfig } from '../../../../interfaces';
-export default function ({ preset, chapters, branding, src, analytics, blockAttributes, provider, provider_video_id, youtube, type, isAdmin, i18n, storage, }: PrestoConfig): {
+export default function ({ preset, chapters, branding, src, analytics, automations, blockAttributes, provider, provider_video_id, youtube, type, isAdmin, i18n, storage, }: PrestoConfig): {
   invertTime: boolean;
   storage: {
     enabled?: boolean;
@@ -58,6 +58,7 @@ export default function ({ preset, chapters, branding, src, analytics, blockAttr
   src: string;
   ajaxProgress: boolean;
   analytics: boolean;
+  automations: boolean;
   mutedPreview: {
     enabled: boolean;
   };

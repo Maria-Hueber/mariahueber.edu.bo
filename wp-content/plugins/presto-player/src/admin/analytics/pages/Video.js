@@ -1,25 +1,28 @@
 const { __ } = wp.i18n;
 
-const { Flex, FlexBlock, FlexItem, Spinner, Button, Disabled, CardBody } =
+const { Flex, FlexBlock, FlexItem, Spinner, Button, Disabled, CardBody, TextControl } =
   wp.components;
 
 import { history } from "@/router/context";
-const { useEffect, useState } = wp.element;
-const { apiFetch } = wp;
+import DatePicker from "../components/DatePicker";
+import VideoAverageWatchTime from "../components/VideoAverageWatchTime";
 import VideoTimeline from "../components/VideoTimeline";
 import VideoViews from "../components/VideoViews";
-import VideoAverageWatchTime from "../components/VideoAverageWatchTime";
-import DatePicker from "../components/DatePicker";
-import Player from "@/admin/blocks/shared/Player";
+
+const { useEffect, useState } = wp.element;
+const { apiFetch } = wp;
 
 const Video = ({ route }) => {
   const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState({});
   const [startDate, setStartDate] = useState(
     new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-  );
-  const [endDate, setEndDate] = useState(new Date());
-  const [error, setError] = useState("");
+    );
+    const [endDate, setEndDate] = useState(new Date());
+    const [error, setError] = useState("");
+
+    const [thisName, setThisName] = useState(null);
+    const [editing, setEditing] = useState(false);
 
   const back = () => {
     history.push(`#/`);
@@ -31,8 +34,8 @@ const Video = ({ route }) => {
       let video = await apiFetch({
         url: `${prestoPlayer?.root}${prestoPlayer?.prestoVersionString}videos/${route?.params?.id}`,
       });
-
       setVideo(video);
+      setThisName(video?.title);
     } catch (e) {
       if (e.code === "rest_no_route") {
         setError("Video Not Found");
@@ -41,6 +44,63 @@ const Video = ({ route }) => {
       setLoading(false);
     }
   };
+
+  const putVideo = async () => {
+    console.log(`New Video title  ${thisName}`);
+    setLoading(true);
+    try {
+      const data = {
+        ...video,
+        ...{ title: thisName },
+      };
+      let saved = await wp.apiFetch({
+        method: "POST",
+        url: wp.url.addQueryArgs(
+          `${prestoPlayer.root}${prestoPlayer.prestoVersionString}videos/${video.id}`,
+          { _method: "PUT" }
+        ),
+        data,
+      });
+
+      if (!saved) {
+        throw genericError;
+      }
+      setEditing(false);
+      setVideo(saved);
+    } catch (e) {
+      setError(e?.message ? e.message : genericError);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const cancelEditing = () => {
+    setThisName(video?.title);
+    setEditing(false);
+  }
+
+  const renderVideoEditableTitle = () => {
+    if (loading) {
+      return <Spinner />
+    } else if(editing) {
+      return <div className="presto-inline-edit presto-inline-edit--editing">
+        <TextControl
+          className="presto-inline-edit__input"
+          type="text"
+          value={thisName}
+          onChange={(title) => setThisName(title)}
+        />
+        <Button className="presto-inline-edit__button" isPrimary onClick={putVideo} > Save </Button>
+        <Button className="presto-inline-edit__button" isSecondary onClick={cancelEditing} > Cancel </Button>
+      </div>;
+    } else {
+      return <div className="presto-inline-edit">
+        <h1 className="presto-dashboard__title presto-inline-edit__text">{video?.title}</h1>
+
+        <button className="presto-inline-edit__edit" onClick={() => setEditing(true)}><span className="dashicon dashicons dashicons-edit"></span></button>
+      </div>;
+    }
+  }
 
   useEffect(() => {
     getVideo();
@@ -67,13 +127,9 @@ const Video = ({ route }) => {
           </Button>
         </FlexBlock>
       </Flex>
-      <Flex>
+      <Flex wrap>
         <FlexBlock>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <h1 className="presto-dashboard__title">{video?.title}</h1>
-          )}
+          {renderVideoEditableTitle()}
         </FlexBlock>
         <FlexItem>
           <DatePicker
@@ -94,7 +150,7 @@ const Video = ({ route }) => {
               endDate={endDate}
             />
           </div>
-          <div className="presto-dashboard__item">
+          {/* <div className="presto-dashboard__item">
             {!!Object.keys(video || {}).length && (
               <Player
                 src={video?.src}
@@ -105,7 +161,7 @@ const Video = ({ route }) => {
                 }}
               />
             )}
-          </div>
+          </div> */}
           <div className="presto-dashboard__item">
             <VideoAverageWatchTime
               video_id={route?.params?.id}

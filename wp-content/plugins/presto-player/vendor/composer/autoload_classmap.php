@@ -94,6 +94,7 @@ return array(
     'PrestoPlayer\\Foo\\ExtendedA' => $vendorDir . '/level-2/dice/tests/TestData/Namespace.php',
     'PrestoPlayer\\Integrations\\BeaverBuilder\\BeaverBuilder' => $baseDir . '/inc/Integrations/BeaverBuilder/BeaverBuilder.php',
     'PrestoPlayer\\Integrations\\BeaverBuilder\\ReusableVideoModule\\Module' => $baseDir . '/inc/Integrations/BeaverBuilder/ReusableVideoModule/Module.php',
+    'PrestoPlayer\\Integrations\\Divi\\Divi' => $baseDir . '/inc/Integrations/Divi/Divi.php',
     'PrestoPlayer\\Integrations\\Elementor\\Elementor' => $baseDir . '/inc/Integrations/Elementor/Elementor.php',
     'PrestoPlayer\\Integrations\\Elementor\\ReusableVideoWidget' => $baseDir . '/inc/Integrations/Elementor/ReusableVideoWidget.php',
     'PrestoPlayer\\Integrations\\Elementor\\VideoWidget' => $baseDir . '/inc/Integrations/Elementor/VideoWidget.php',

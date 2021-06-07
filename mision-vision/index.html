@@ -139,6 +139,8 @@ html{font-size:100%;}a,.page-title{color:#26262c;}a:hover,a:focus{color:#777777;
 <link rel="stylesheet" id="wp-block-library-css" href="https://mariahueber.ga/wp-includes/css/dist/block-library/style.min.css?ver=5.7.2" media="all">
 <link rel="stylesheet" id="contact-form-7-css" href="https://mariahueber.ga/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.4.1" media="all">
 <link rel="stylesheet" id="astra-contact-form-7-css" href="https://mariahueber.ga/wp-content/themes/astra/assets/css/minified/compatibility/contact-form-7-main.min.css?ver=3.4.6" media="all">
+<link rel="stylesheet" id="wp-dark-mode-frontend-css" href="https://mariahueber.ga/wp-content/plugins/wp-dark-mode/assets/css/frontend.css?ver=1.3.1" media="all">
+<link rel="stylesheet" id="wp-dark-mode-atra-css" href="https://mariahueber.ga/wp-content/plugins/wp-dark-mode/assets/css/themes/astra.css?ver=5.7.2" media="all">
 <link rel="stylesheet" id="hfe-style-css" href="https://mariahueber.ga/wp-content/plugins/header-footer-elementor/assets/css/header-footer-elementor.css?ver=1.5.9" media="all">
 <link rel="stylesheet" id="elementor-icons-css" href="https://mariahueber.ga/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.11.0" media="all">
 <link rel="stylesheet" id="elementor-animations-css" href="https://mariahueber.ga/wp-content/plugins/elementor/assets/lib/animations/animations.min.css?ver=3.2.4" media="all">
@@ -161,6 +163,10 @@ flexibility(document.documentElement);
 <![endif]-->
 <script src="https://mariahueber.ga/wp-includes/js/jquery/jquery.min.js?ver=3.5.1" id="jquery-core-js"></script>
 <script src="https://mariahueber.ga/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
+<script id="wp-dark-mode-pro-frontend-js-extra">
+var wpDarkModeProFrontend = {"pluginUrl":"https:\/\/mariahueber.ga\/wp-content\/plugins\/wp-dark-mode-ultimate\/wp-dark-mode-pro\/","match_os_mode":"1","time_based_mode":"","start_at":"17:00","end_at":"06:00"};
+</script>
+<script src="https://mariahueber.ga/wp-content/plugins/wp-dark-mode-ultimate/wp-dark-mode-pro/assets/js/frontend.min.js?ver=1" id="wp-dark-mode-pro-frontend-js"></script>
 <link rel="https://api.w.org/" href="https://mariahueber.ga/wp-json/"><link rel="alternate" type="application/json" href="https://mariahueber.ga/wp-json/wp/v2/pages/631"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://mariahueber.ga/xmlrpc.php?rsd">
 <meta name="generator" content="WordPress 5.7.2">
 <link rel="shortlink" href="https://mariahueber.ga/?p=631">
@@ -168,7 +174,161 @@ flexibility(document.documentElement);
 <link rel="alternate" type="text/xml+oembed" href="https://mariahueber.ga/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmariahueber.ga%2Fmision-vision%2F&amp;format=xml">
 <style id="mystickymenu" type="text/css">#mysticky-nav { width:100%; position: static; }#mysticky-nav.wrapfixed { position:fixed; left: 0px; margin-top:0px;  z-index: 99990; -webkit-transition: 0.5s; -moz-transition: 0.5s; -o-transition: 0.5s; transition: 0.5s; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=96)"; filter: alpha(opacity=96); opacity:0.96; background-color: #ffffff;}#mysticky-nav.wrapfixed .myfixed{ background-color: #ffffff; position: relative;top: auto;left: auto;right: auto;}#mysticky-nav .myfixed { margin:0 auto; float:none; border:0px; background:none; max-width:100%; }</style>			<style type="text/css">
 																															</style>
-			<style>.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><link rel="icon" href="https://mariahueber.ga/wp-content/uploads/2021/05/cropped-logo_oficial-32x32.png" sizes="32x32">
+			
+            <script>
+
+                // transfers sessionStorage from one tab to another
+                var sessionStorage_transfer = function(event) {
+                    if(!event) { event = window.event; } // ie suq
+                    if(!event.newValue) return;          // do nothing if no value to work with
+                    if (event.key == 'getSessionStorage') {
+                        // another tab asked for the sessionStorage -> send it
+                        localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
+                        // the other tab should now have it, so we're done with it.
+                        localStorage.removeItem('sessionStorage'); // <- could do short timeout as well.
+                    } else if (event.key == 'sessionStorage' && !sessionStorage.length) {
+                        // another tab sent data <- get it
+                        var data = JSON.parse(event.newValue);
+                        for (var key in data) {
+                            sessionStorage.setItem(key, data[key]);
+                        }
+                    }
+                };
+
+                // listen for changes to localStorage
+                if(window.addEventListener) {
+                    window.addEventListener("storage", sessionStorage_transfer, false);
+                } else {
+                    window.attachEvent("onstorage", sessionStorage_transfer);
+                }
+
+                // Ask other tabs for session storage (this is ONLY to trigger event)
+                if (!sessionStorage.length) {
+                    localStorage.setItem('getSessionStorage', 'foobar');
+                    localStorage.removeItem('getSessionStorage', 'foobar');
+                }
+
+				var is_saved = sessionStorage.getItem('wp_dark_mode_frontend'); var default_mode = 0;
+                if ( (is_saved && is_saved != 0) || (!is_saved && default_mode) ) {
+                    document.querySelector('html').classList.add('wp-dark-mode-active');
+                }
+
+				
+                /**-- check OS aware mode if dark mode not changed by the switch --**/
+                if (!is_saved || (is_saved && is_saved != 0)) {
+                    var darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+                    try {
+                        // Chrome & Firefox
+                        darkMediaQuery.addEventListener('change', function (e) {
+                            var newColorScheme = e.matches ? 'dark' : 'light';
+
+                            if ('dark' === newColorScheme) {
+                                document.querySelector('html').classList.add('wp-dark-mode-active');
+                            } else {
+                                document.querySelector('html').classList.remove('wp-dark-mode-active');
+                            }
+
+                            window.dispatchEvent(new Event('darkmodeInit'));
+
+                        });
+                    } catch (e1) {
+                        try {
+                            // Safari
+                            darkMediaQuery.addListener(function (e) {
+                                var newColorScheme = e.matches ? 'dark' : 'light';
+
+                                if ('dark' === newColorScheme) {
+                                    document.querySelector('html').classList.add('wp-dark-mode-active');
+                                } else {
+                                    document.querySelector('html').classList.remove('wp-dark-mode-active');
+                                }
+
+                                window.dispatchEvent(new Event('darkmodeInit'));
+
+                            });
+                        } catch (e2) {
+                            console.error(e2);
+                        }
+                    }
+
+                    /** check init dark theme */
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.querySelector('html').classList.add('wp-dark-mode-active');
+                        window.dispatchEvent(new Event('darkmodeInit'));
+                    }
+                }
+
+				
+            </script>
+
+            <style>
+                :root {
+  --wp-dark-mode-bg: #192229;
+  --wp-dark-mode-text: #fff;
+  --wp-dark-mode-link: #e5e5e5;
+  --wp-dark-mode-btn: #37384e;
+  --wp-dark-mode-border: #414258; }
+
+html.wp-dark-mode-active :not(.wp-dark-mode-ignore):not(mark):not(code):not(pre):not(ins):not(option):not(input):not(select):not(textarea):not(button):not(a):not(video):not(canvas):not(progress):not(iframe):not(svg):not(path):not(.mejs-iframe-overlay):not(.mejs-iframe-overlay):not(.elementor-element-overlay):not(.elementor-background-overlay) {
+  background-color: var(--wp-dark-mode-bg) !important;
+  color: var(--wp-dark-mode-text) !important;
+  border-color: var(--wp-dark-mode-border) !important; }
+
+html.wp-dark-mode-active a:not(.wp-dark-mode-ignore), html.wp-dark-mode-active a *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active a:active:not(.wp-dark-mode-ignore), html.wp-dark-mode-active a:active *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active a:visited:not(.wp-dark-mode-ignore), html.wp-dark-mode-active a:visited *:not(.wp-dark-mode-ignore) {
+  background-color: transparent !important;
+  color: var(--wp-dark-mode-link) !important;
+  border-color: var(--wp-dark-mode-border) !important; }
+
+html.wp-dark-mode-active button:not(.wp-dark-mode-ignore), html.wp-dark-mode-active iframe:not(.wp-dark-mode-ignore), html.wp-dark-mode-active iframe *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="button"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="checkebox"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="date"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="datetime-local"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="email"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="image"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="month"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="number"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="range"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="reset"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="search"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="submit"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="tel"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="text"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="time"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="url"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="week"]:not(.wp-dark-mode-ignore), html.wp-dark-mode-active select:not(.wp-dark-mode-ignore), html.wp-dark-mode-active textarea:not(.wp-dark-mode-ignore), html.wp-dark-mode-active i:not(.wp-dark-mode-ignore) {
+  background-color: var(--wp-dark-mode-btn) !important;
+  color: var(--wp-dark-mode-text) !important;
+  border-color: var(--wp-dark-mode-border) !important; }
+  html.wp-dark-mode-active button *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active iframe *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active iframe * *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="button"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="checkebox"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="date"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="datetime-local"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="email"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="image"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="month"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="number"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="range"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="reset"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="search"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="submit"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="tel"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="text"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="time"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="url"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active input[type="week"] *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active select *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active textarea *:not(.wp-dark-mode-ignore), html.wp-dark-mode-active i *:not(.wp-dark-mode-ignore) {
+    background: transparent !important; }
+            </style>
+
+						<script>
+
+                var is_saved = sessionStorage.getItem('wp_dark_mode_frontend');
+
+                if (is_saved == 1) {
+                    document.getElementsByTagName('html')[0].classList.add('wp-dark-mode-active');
+                }
+
+                /** check time base */
+                function wpDarkModeCheckTime(startTime, endTime) {
+                    currentDate = new Date();
+
+                    startDate = new Date(currentDate.getTime());
+                    startDate.setHours(startTime.split(":")[0]);
+                    startDate.setMinutes(startTime.split(":")[1]);
+
+                    endDate = new Date(currentDate.getTime());
+                    endDate.setHours(endTime.split(":")[0]);
+                    endDate.setMinutes(endTime.split(":")[1]);
+
+                    return startDate < currentDate && endDate > currentDate;
+                }
+
+                var time_based_mode = false;
+                var start_at = '17:00';
+                var end_at = '06:00';
+
+                if ( 0 != is_saved) {
+                    if (time_based_mode && wpDarkModeCheckTime(start_at, end_at)) {
+                        document.getElementsByTagName('html')[0].classList.add('wp-dark-mode-active');
+                    }
+                }
+
+			</script>
+		<style id="wp-dark-mode-custom-css">html.wp-dark-mode-active :not(#wp-dark-mode-ignorea):not(#wp-dark-mode-ignoreb):not(#wp-dark-mode-ignorec):not(#wp-dark-mode-ignored):not(#wp-dark-mode-ignoree):not(#wp-dark-mode-ignoref):not(#wp-dark-mode-ignoreg):not(#wp-dark-mode-ignoreh):not(#wp-dark-mode-ignorei):not(#wp-dark-mode-ignorej):not(#wp-dark-mode-ignorek):not(#wp-dark-mode-ignorel):not(#wp-dark-mode-ignorem):not(#wp-dark-mode-ignoren):not(#wp-dark-mode-ignoreo):not(#wp-dark-mode-ignorep):not(#wp-dark-mode-ignoreq):not(#wp-dark-mode-ignorer):not(#wp-dark-mode-ignores):not(#wp-dark-mode-ignoret):not(#wp-dark-mode-ignoreu):not(#wp-dark-mode-ignorev):not(#wp-dark-mode-ignorew):not(#wp-dark-mode-ignorex):not(#wp-dark-mode-ignorey):not(#wp-dark-mode-ignorez) :root {
+  --wp-dark-mode-bg: #192229;
+  --wp-dark-mode-text: #fff;
+  --wp-dark-mode-link: #e5e5e5;
+  --wp-dark-mode-btn: #192229;
+  --wp-dark-mode-border: #192229; }
+</style><style>.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><link rel="icon" href="https://mariahueber.ga/wp-content/uploads/2021/05/cropped-logo_oficial-32x32.png" sizes="32x32">
 <link rel="icon" href="https://mariahueber.ga/wp-content/uploads/2021/05/cropped-logo_oficial-192x192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="https://mariahueber.ga/wp-content/uploads/2021/05/cropped-logo_oficial-180x180.png">
 <meta name="msapplication-TileImage" content="https://mariahueber.ga/wp-content/uploads/2021/05/cropped-logo_oficial-270x270.png">
@@ -386,7 +546,29 @@ font-family: 'Google Sans'
 </div>
 	</footer><!-- #colophon -->
 	</div><!-- #page -->
-		<div id="ast-mobile-popup-wrapper">
+<input type="checkbox" id="wp-dark-mode-switch" class="wp-dark-mode-switch">
+<div class="wp-dark-mode-switcher wp-dark-mode-ignore  style-7 floating right_bottom">
+
+    <label for="wp-dark-mode-switch">
+        <div class="toggle"></div>
+        <div class="modes">
+            <img class="light" src="https://mariahueber.ga/wp-content/plugins/wp-dark-mode/assets/images/btn-7/sun.png">
+            <img class="dark" src="https://mariahueber.ga/wp-content/plugins/wp-dark-mode/assets/images/btn-7/moon.png">
+        </div>
+    </label>
+
+</div>            <script>
+
+                document.addEventListener('DOMContentLoaded', function (){
+                    replace_img();
+                    setTimeout(replace_img, 200);
+                });
+
+                function replace_img() {
+
+	                                }
+            </script>
+					<div id="ast-mobile-popup-wrapper">
 			<div id="ast-mobile-popup" class="ast-mobile-popup-drawer content-align-flex-start ast-mobile-popup-right">
 			<div class="ast-mobile-popup-overlay"></div>
 			<div class="ast-mobile-popup-inner">
@@ -500,12 +682,23 @@ var wpcf7 = {"api":{"root":"https:\/\/mariahueber.ga\/wp-json\/","namespace":"co
 var option = {"mystickyClass":"header.site-header","activationHeight":"0","disableWidth":"0","disableLargeWidth":"0","adminBar":"false","device_desktop":"1","device_mobile":"1","mystickyTransition":"slide","mysticky_disable_down":"false"};
 </script>
 <script src="https://mariahueber.ga/wp-content/plugins/mystickymenu/js/mystickymenu.min.js?ver=2.5.1" id="mystickymenu-js"></script>
+<script src="https://mariahueber.ga/wp-includes/js/underscore.min.js?ver=1.8.3" id="underscore-js"></script>
+<script id="wp-util-js-extra">
+var _wpUtilSettings = {"ajax":{"url":"\/wordpress\/wp-admin\/admin-ajax.php"}};
+</script>
+<script src="https://mariahueber.ga/wp-includes/js/wp-util.min.js?ver=5.7.2" id="wp-util-js"></script>
+<script id="wp-dark-mode-frontend-js-extra">
+var wpDarkModeFrontend = {"excludes":".wp-dark-mode-ignore, .wp-dark-mode-ignore *, .video-js, .select2, .owl-nav, .owl-dots, .google-map","is_excluded":"","enable_frontend":"1","enable_os_mode":"1","remember_darkmode":"","is_elementor_editor":"","is_pro_active":"","is_ultimate_active":"1","enable_backend":"","default_mode":"","is_block_editor":"","pro_version":"1.1.2","images":""};
+var wpDarkModeProFrontend = {"pluginUrl":"https:\/\/mariahueber.ga\/wp-content\/plugins\/wp-dark-mode-ultimate\/wp-dark-mode-pro\/","match_os_mode":"1","time_based_mode":"","start_at":"17:00","end_at":"06:00"};
+</script>
+<script src="https://mariahueber.ga/wp-content/plugins/wp-dark-mode/assets/js/frontend.min.js?ver=1.3.1" id="wp-dark-mode-frontend-js"></script>
+<script src="https://mariahueber.ga/wp-content/plugins/wp-dark-mode-ultimate/assets//js/frontend.min.js?ver=1.1.2" id="wp-dark-mode-ultimate-js"></script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.1.1" id="elementor-pro-webpack-runtime-js"></script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.2.4" id="elementor-webpack-runtime-js"></script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.2.4" id="elementor-frontend-modules-js"></script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor-pro/assets/lib/sticky/jquery.sticky.min.js?ver=3.1.1" id="elementor-sticky-js"></script>
 <script id="elementor-pro-frontend-js-before">
-var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/mariahueber.ga\/wp-admin\/admin-ajax.php","nonce":"f58763df81","urls":{"assets":"https:\/\/mariahueber.ga\/wp-content\/plugins\/elementor-pro\/assets\/"},"i18n":{"toc_no_headings_found":"No headings were found on this page."},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"google":{"title":"Google+","has_counter":true},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"facebook_sdk":{"lang":"es_ES","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/mariahueber.ga\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/mariahueber.ga\/wp-admin\/admin-ajax.php","nonce":"2171003ab4","urls":{"assets":"https:\/\/mariahueber.ga\/wp-content\/plugins\/elementor-pro\/assets\/"},"i18n":{"toc_no_headings_found":"No headings were found on this page."},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"google":{"title":"Google+","has_counter":true},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"facebook_sdk":{"lang":"es_ES","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/mariahueber.ga\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
 </script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.1.1" id="elementor-pro-frontend-js"></script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2" id="elementor-waypoints-js"></script>
@@ -519,11 +712,6 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
 <script src="https://mariahueber.ga/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.2.4" id="elementor-frontend-js"></script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor-pro/assets/js/preloaded-elements-handlers.min.js?ver=3.1.1" id="pro-preloaded-elements-handlers-js"></script>
 <script src="https://mariahueber.ga/wp-content/plugins/elementor/assets/js/preloaded-modules.min.js?ver=3.2.4" id="preloaded-modules-js"></script>
-<script src="https://mariahueber.ga/wp-includes/js/underscore.min.js?ver=1.8.3" id="underscore-js"></script>
-<script id="wp-util-js-extra">
-var _wpUtilSettings = {"ajax":{"url":"\/wordpress\/wp-admin\/admin-ajax.php"}};
-</script>
-<script src="https://mariahueber.ga/wp-includes/js/wp-util.min.js?ver=5.7.2" id="wp-util-js"></script>
 <script id="wpforms-elementor-js-extra">
 var wpformsElementorVars = {"captcha_provider":"recaptcha","recaptcha_type":"v2"};
 </script>

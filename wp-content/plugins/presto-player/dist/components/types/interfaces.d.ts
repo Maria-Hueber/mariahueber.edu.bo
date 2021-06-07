@@ -4,6 +4,8 @@ declare global {
     wp: any;
     jQuery: any;
     prestoPlayer: {
+      debug: boolean;
+      debug_navigator: boolean;
       ajaxurl: string;
       nonce: string;
       isPremium: string;
@@ -33,6 +35,7 @@ export interface ActionBarConfig extends Object {
   button_color?: string;
   button_count?: boolean;
   button_link?: ButtonLinkObject;
+  button_text_color?: string;
 }
 export interface ButtonLinkObject extends Object {
   id: string;
@@ -48,6 +51,7 @@ export interface PrestoConfig extends Object {
   branding?: prestoBranding;
   src?: string;
   analytics?: boolean;
+  automations?: boolean;
   provider?: string;
   provider_video_id?: string;
   isAdmin?: boolean;
@@ -109,11 +113,27 @@ export interface presetAttributes extends Object {
   speed?: boolean;
   caption_style?: string;
   email_collection?: EmailCollection;
+  cta?: CTA;
   action_bar?: ActionBarConfig;
 }
 export interface prestoBranding extends Object {
   logo?: string;
   logo_width?: number;
+}
+export interface CTA extends Object {
+  enabled?: boolean;
+  percentage?: number;
+  show_rewatch?: boolean;
+  show_skip?: boolean;
+  headline?: string;
+  show_button?: boolean;
+  bottom_text?: string;
+  button_color?: string;
+  background_opacity?: number;
+  button_text_color?: string;
+  button_text?: string;
+  button_link?: ButtonLinkObject;
+  button_radius?: number;
 }
 export interface EmailCollection extends Object {
   enabled?: boolean;

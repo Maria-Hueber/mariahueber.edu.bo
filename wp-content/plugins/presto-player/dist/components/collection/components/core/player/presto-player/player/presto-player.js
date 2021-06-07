@@ -7,6 +7,7 @@ import customLogo from './functions/custom-logo';
 import setPoster from './functions/set-poster';
 import actions from './functions/actions';
 import ajaxProgress from './functions/ajax-progress';
+import getNonce from './functions/get-nonce';
 import fullscreen from './functions/fullscreen';
 import menuSizing from './functions/menu-sizing';
 
@@ -46,7 +47,6 @@ export default function (element, options = {}) {
   }
 
   actions(player);
-  ajaxProgress(player);
   fullscreen(player);
   menuSizing(player);
   customLogo(player);
@@ -59,6 +59,8 @@ export default function (element, options = {}) {
   }
 
   // non-admin stuff
+  getNonce(player);
+  ajaxProgress(setup);
   saveTime(player);
   analytics(player);
 

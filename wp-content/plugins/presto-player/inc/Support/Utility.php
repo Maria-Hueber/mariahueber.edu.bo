@@ -4,6 +4,10 @@ namespace PrestoPlayer\Support;
 
 class Utility
 {
+    public static function sanitizeCSS($css)
+    {
+        return preg_match('#</?\w+#', $css) ? "" : $css;
+    }
 
     public static function insertAfterString($str, $search, $insert)
     {

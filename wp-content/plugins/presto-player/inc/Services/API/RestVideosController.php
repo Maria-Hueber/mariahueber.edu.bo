@@ -40,7 +40,7 @@ class RestVideosController extends \WP_REST_Controller
     }
 
     /**
-     * Register presets routes
+     * Register videos routes
      *
      * @return void
      */
@@ -73,6 +73,12 @@ class RestVideosController extends \WP_REST_Controller
                         'default' => 'view',
                     ],
                 ],
+            ],
+            [
+                'methods'             => \WP_REST_Server::EDITABLE,
+                'callback'            => [$this, 'update_item'],
+                'permission_callback' => [$this, 'update_item_permissions_check'],
+                'args'                => $this->get_endpoint_args_for_item_schema(false),
             ],
             'schema' => [$this, 'get_schema']
         ]);
@@ -161,7 +167,7 @@ class RestVideosController extends \WP_REST_Controller
         // if there's an external video id
         if ($item['external_id']) {
             $where = ['external_id' => $item['external_id']];
-        } else if ($item['attachment_id']) {
+        } elseif ($item['attachment_id']) {
             $where = ['attachment_id' => $item['attachment_id']];
         }
 
@@ -208,12 +214,55 @@ class RestVideosController extends \WP_REST_Controller
     }
 
     /**
+     * Update one item from the collection
+     *
+     * @param WP_REST_Request $request Full data about the request.
+     * @return WP_Error|WP_REST_Response
+     */
+    public function update_item($request)
+    {
+        $item = $this->prepare_item_for_database($request);
+
+        $video = new Video($request['id']);
+        $updated = $video->update($item);
+
+        // bail early on error
+        if (is_wp_error($updated)) {
+            return $updated;
+        }
+
+        $data = $this->prepare_item_for_response($video->toArray(), $request);
+
+        if (is_wp_error($data)) {
+            return $data;
+        }
+
+        if (!empty($data)) {
+            return new \WP_REST_Response($data, 200);
+        }
+
+        return new \WP_Error('cant-update', __('Cannot update video.', 'presto-player'), ['status' => 500]);
+    }
+
+
+    /**
      * Check if a given request has access to create items
      *
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
     public function create_item_permissions_check($request)
+    {
+        return current_user_can('upload_files');
+    }
+
+    /**
+     * Check if a given request has access to update a specific item
+     *
+     * @param WP_REST_Request $request Full data about the request.
+     * @return WP_Error|bool
+     */
+    public function update_item_permissions_check($request)
     {
         return current_user_can('upload_files');
     }

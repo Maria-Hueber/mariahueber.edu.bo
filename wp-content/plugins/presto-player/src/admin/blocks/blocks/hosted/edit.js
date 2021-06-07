@@ -3,15 +3,8 @@
  */
 const { __ } = wp.i18n;
 const { getBlobByURL, isBlobURL } = wp.blob;
-const {
-  Button,
-  Disabled,
-  Toolbar,
-  Notice,
-  withNotices,
-  Placeholder,
-  Spinner,
-} = wp.components;
+const { Button, Disabled, Toolbar, Notice, withNotices, Placeholder, Spinner } =
+  wp.components;
 
 const { BlockControls, InspectorControls } = wp.editor;
 const { compose } = wp.compose;

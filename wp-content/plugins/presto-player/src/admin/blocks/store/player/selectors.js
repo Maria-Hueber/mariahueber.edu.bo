@@ -8,9 +8,14 @@ export function getReusableVideo(state, id) {
   return state?.videosReducer?.videos?.find((video) => video?.id === id) || [];
 }
 export function getDefaultPreset(state) {
-  let preset = (state?.presetReducer || []).find((preset) => {
-    return preset.id && preset.id === prestoPlayer?.defaultPreset;
-  });
+  const default_preset = state?.presetSettingsReducer?.default_player_preset;
+
+  let preset =
+    default_preset &&
+    (state?.presetReducer || []).find((preset) => {
+      return preset.id && preset.id === default_preset;
+    });
+
   if (!preset) {
     preset = (state?.presetReducer || []).find((preset) => {
       return preset.slug == "default";
@@ -19,7 +24,6 @@ export function getDefaultPreset(state) {
   if (!preset) {
     preset = (state?.presetReducer || [])[0];
   }
-
   return preset;
 }
 export function presetsLoading(state) {
@@ -27,6 +31,9 @@ export function presetsLoading(state) {
 }
 export function branding(state) {
   return state?.brandingReducer;
+}
+export function playerCSS(state) {
+  return state?.brandingReducer?.player_css;
 }
 export function youtube(state) {
   return state?.youtubeReducer;

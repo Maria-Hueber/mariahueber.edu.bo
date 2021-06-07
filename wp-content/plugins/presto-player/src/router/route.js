@@ -1,6 +1,7 @@
 import { RouterContext } from "./context";
 const { useContext } = wp.element;
 import { match } from "path-to-regexp";
+let prev = "";
 
 export function Route({ path, onRoute, children }) {
   // Extract route from RouterContext
@@ -14,7 +15,10 @@ export function Route({ path, onRoute, children }) {
   }
 
   if (onRoute) {
-    onRoute();
+    if (prev !== matched.path) {
+      onRoute();
+    }
+    prev = matched.path;
   }
 
   return <div>{wp.element.cloneElement(children, { route: matched })}</div>;

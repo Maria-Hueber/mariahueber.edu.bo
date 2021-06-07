@@ -153,6 +153,12 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 == Changelog ==
 
+= 1.4.0 - June 2, 2021 =
+* Add Call to Action Feature
+* Added player custom CSS box.
+* Added default preset option
+* Fixed missing translations.
+
 = 1.3.0 - May 24, 2021 =
 * Shortcode enhancements [View Docs](https://prestoplayer.com/docs/presto-player-shortcode).
 * Ability to turn on/off dynamic javascript loading for better compatibility with script combining.

@@ -248,7 +248,7 @@ abstract class Model implements ModelInterface
             if (!empty($query['date_query']['after'])) {
                 $where .= $wpdb->prepare(
                     "AND %1s >= '%2s' ",
-                    sanitize_text_field($field), // i.e. created_at 
+                    sanitize_text_field($field), // i.e. created_at
                     date('Y-m-d H:i:s', strtotime($query['date_query']['after'])) // convert to date
                 );
             }
@@ -256,7 +256,7 @@ abstract class Model implements ModelInterface
             if (!empty($query['date_query']['before'])) {
                 $where .= $wpdb->prepare(
                     "AND %1s <= '%2s' ",
-                    sanitize_text_field($field), // i.e. created_at 
+                    sanitize_text_field($field), // i.e. created_at
                     date('Y-m-d H:i:s', strtotime($query['date_query']['before'])) // convert to date
                 );
             }
@@ -462,10 +462,10 @@ abstract class Model implements ModelInterface
     }
 
     /**
-     * Attempt to locate a database record using the given 
-     * column / value pairs. If the model can NOT be found 
-     * in the database, a record will be inserted with 
-     * the attributes resulting from merging the first array 
+     * Attempt to locate a database record using the given
+     * column / value pairs. If the model can NOT be found
+     * in the database, a record will be inserted with
+     * the attributes resulting from merging the first array
      * argument with the optional second array argument.
      *
      * @param array $search Model to search for
@@ -513,10 +513,10 @@ abstract class Model implements ModelInterface
     }
 
     /**
-     * Attempt to locate a database record using the given 
-     * column / value pairs and update. If the model can NOT be found 
-     * in the database, a record will be inserted with 
-     * the attributes resulting from merging the first array 
+     * Attempt to locate a database record using the given
+     * column / value pairs and update. If the model can NOT be found
+     * in the database, a record will be inserted with
+     * the attributes resulting from merging the first array
      * argument with the optional second array argument.
      *
      * @param array $search Model to search for
@@ -595,7 +595,7 @@ abstract class Model implements ModelInterface
      * Gets a single model
      *
      * @param int $id
-     * 
+     *
      * @return Model Model object
      */
     public function get($id)

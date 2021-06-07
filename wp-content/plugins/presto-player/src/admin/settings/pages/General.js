@@ -1,23 +1,22 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-
 const { __ } = wp.i18n;
 const { dispatch } = wp.data;
-const { RangeControl, Notice } = wp.components;
+const { RangeControl, Spinner } = wp.components;
+const { useEffect, useState } = wp.element;
 
-import { getSettings, getSetting } from "@/admin/settings/util";
-
-import Group from "../components/Group";
-import Page from "../components/Page";
-
+import { getSetting, getSettings } from "@/admin/settings/util";
+import { css, jsx } from "@emotion/core";
 import ColorPicker from "../components/ColorPicker";
-import ToggleControl from "../components/ToggleControl";
-import Media from "../components/Media";
 import Disabled from "../components/Disabled";
+import Group from "../components/Group";
+import Media from "../components/Media";
+import Page from "../components/Page";
+import ComboboxControl from "../components/ComboboxControl";
+import ToggleControl from "../components/ToggleControl";
+import CodeMirror from "../components/CodeMirror";
 
 export default () => {
   const settings = getSettings();
-
   const disabled = () => {
     if (prestoPlayer?.isPremium) {
       return false;
@@ -32,6 +31,25 @@ export default () => {
       link: "https://prestoplayer.com",
     };
   };
+
+  const [presets, setPresets] = useState([]);
+
+  useEffect(() => {
+    async function getPresets() {
+      const res = await wp.apiFetch({
+        path: `/presto-player/v1/preset/`,
+      });
+      setPresets(
+        res.map(function (item) {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        })
+      );
+    }
+    getPresets();
+  }, []);
 
   return (
     <Page
@@ -97,50 +115,6 @@ export default () => {
       </Group>
 
       <Group
-        title={__("Performance", "presto-player")}
-        description={__(
-          "Performance options for player loading.",
-          "presto-player"
-        )}
-      >
-        <div>
-          <ToggleControl
-            className={"presto-player__setting--module-enabled"}
-            option={{
-              id: "module_enabled",
-              name: __("Dynamically Load JavaScript", "presto-player"),
-              help: __(
-                "Dynamically load javascript modules on the page which can significantly reduce javascript size and increase performance.",
-                "presto-player"
-              ),
-            }}
-            value={settings?.presto_player_performance?.module_enabled}
-            optionName="performance"
-          />
-          {!!settings?.presto_player_performance?.module_enabled && (
-            <Notice
-              css={css`
-                background: #f3f4f5 !important;
-              `}
-              className="presto-notice"
-              status="info"
-              isDismissible={false}
-            >
-              <div>
-                <strong>{__("Please Note", "presto-player")}</strong>
-              </div>
-              <div>
-                {__(
-                  "You may need to exclude the player script from combining, as well as enable CORS requests for some CDNs",
-                  "presto-player"
-                )}
-              </div>
-            </Notice>
-          )}
-        </div>
-      </Group>
-
-      <Group
         title={__("Analytics", "presto-player")}
         disabled={disabled()}
         description={__(
@@ -182,6 +156,42 @@ export default () => {
             />
           )}
         </div>
+      </Group>
+
+      <Group
+        title={__("Presets", "presto-player")}
+        disabled={disabled()}
+        description={__("Media presets settings.", "presto-player")}
+      >
+        {!presets.length ? (
+          <Spinner />
+        ) : (
+          <ComboboxControl
+            option={{
+              name: __("Select default preset.", "presto-player"),
+              id: "default_player_preset",
+            }}
+            options={presets}
+            value={settings?.presto_player_presets?.default_player_preset}
+            optionName="presets"
+          />
+        )}
+      </Group>
+
+      <Group
+        disabled={disabled()}
+        title={__("Custom CSS", "presto-player")}
+        description={__(
+          "Quickly add custom css to the player web component.",
+          "presto-player"
+        )}
+      >
+        <CodeMirror
+          disabled={!prestoPlayer?.isPremium}
+          option={{ id: "player_css" }}
+          value={settings?.presto_player_branding?.player_css}
+          optionName="branding"
+        />
       </Group>
 
       <Group

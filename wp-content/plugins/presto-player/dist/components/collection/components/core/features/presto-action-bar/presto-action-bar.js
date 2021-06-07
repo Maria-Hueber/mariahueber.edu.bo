@@ -1,4 +1,4 @@
-import { Component, State, Prop, Watch, h, Element } from '@stencil/core';
+import { Component, Element, h, Prop, State, Watch } from '@stencil/core';
 import { timePassed } from '../../../../util';
 export class PrestoActionBar {
   constructor() {
@@ -41,15 +41,19 @@ export class PrestoActionBar {
     return h("presto-youtube-subscribe-button", { key: this.youtubeRenderKey, channel: (_c = this.youtube) === null || _c === void 0 ? void 0 : _c.channelId, showCount: (_d = this.config) === null || _d === void 0 ? void 0 : _d.button_count });
   }
   customButton() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     if (((_a = this.config) === null || _a === void 0 ? void 0 : _a.button_type) !== 'custom') {
       return;
     }
-    return (h("presto-player-button", { type: "primary", size: "small", href: (_c = (_b = this.config) === null || _b === void 0 ? void 0 : _b.button_link) === null || _c === void 0 ? void 0 : _c.url, target: ((_e = (_d = this.config) === null || _d === void 0 ? void 0 : _d.button_link) === null || _e === void 0 ? void 0 : _e.opensInNewTab) ? '_blank' : '_self', style: Object.assign({ '--presto-player-button-border-radius': `${(_f = this.config) === null || _f === void 0 ? void 0 : _f.button_radius}px` }, (((_g = this.config) === null || _g === void 0 ? void 0 : _g.button_color)
+    return (h("presto-player-button", { type: "primary", size: "small", href: (_c = (_b = this.config) === null || _b === void 0 ? void 0 : _b.button_link) === null || _c === void 0 ? void 0 : _c.url, target: ((_e = (_d = this.config) === null || _d === void 0 ? void 0 : _d.button_link) === null || _e === void 0 ? void 0 : _e.opensInNewTab) ? '_blank' : '_self', style: Object.assign(Object.assign({ '--presto-player-button-border-radius': `${(_f = this.config) === null || _f === void 0 ? void 0 : _f.button_radius}px` }, (((_g = this.config) === null || _g === void 0 ? void 0 : _g.button_color)
         ? {
           '--presto-player-button-color': `${(_h = this.config) === null || _h === void 0 ? void 0 : _h.button_color}`,
         }
-        : {})) }, (_j = this.config) === null || _j === void 0 ? void 0 : _j.button_text));
+        : {})), (((_j = this.config) === null || _j === void 0 ? void 0 : _j.button_text_color)
+        ? {
+          '--presto-player-button-text': `${(_k = this.config) === null || _k === void 0 ? void 0 : _k.button_text_color}`,
+        }
+        : {})) }, (_l = this.config) === null || _l === void 0 ? void 0 : _l.button_text));
   }
   render() {
     var _a, _b;

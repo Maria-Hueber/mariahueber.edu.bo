@@ -1,6 +1,6 @@
 const { __ } = wp.i18n;
 
-const { Button, RangeControl, BaseControl } = wp.components;
+const { Button, BaseControl } = wp.components;
 const { MediaUpload } = wp.mediaUtils;
 const { dispatch } = wp.data;
 import classNames from "classnames";

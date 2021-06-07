@@ -1,7 +1,8 @@
 /** @jsx jsx */
 const { ColorPicker, ColorIndicator, Popover, Button, Flex } = wp.components;
 const { useState, useEffect } = wp.element;
-import { css, jsx } from "@emotion/core";
+const { __ } = wp.i18n;
+import { jsx } from "@emotion/core";
 
 export default ({ color, setColor }) => {
   const [open, setOpen] = useState(false);
@@ -43,7 +44,7 @@ export default ({ color, setColor }) => {
                 setOpen(false);
               }}
             >
-              Reset
+              {__("Reset", "presto-player")}
             </Button>
             <div
               css={{
@@ -60,10 +61,10 @@ export default ({ color, setColor }) => {
                   setOpen(false);
                 }}
               >
-                Cancel
+                {__("Cancel", "presto-player")}
               </Button>
               <Button isPrimary onClick={() => setOpen(false)}>
-                Apply
+                {__("Apply", "presto-player")}
               </Button>
             </div>
           </div>

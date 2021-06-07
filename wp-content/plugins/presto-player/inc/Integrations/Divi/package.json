@@ -1,0 +1,34 @@
+{
+  "name": "@presto-player/divi-integration",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "divi-scripts": "1.0.2-rc.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "scripts": {
+    "start:packages": "divi-scripts start",
+    "serve:packages": "divi-scripts start",
+    "build:packages": "divi-scripts build",
+    "zip": "divi-scripts build && divi-scripts zip",
+    "eject": "divi-scripts eject"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">1%",
+      "last 4 versions",
+      "Firefox ESR",
+      "not ie < 11"
+    ]
+  },
+  "cde": {
+    "gettext": "prpl-presto-player",
+    "prefix": "prpl"
+  }
+}

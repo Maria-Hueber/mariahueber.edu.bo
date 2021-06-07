@@ -140,3 +140,10 @@ export function updateYoutube(name, value) {
     value,
   };
 }
+
+export function setPresetSettings(value) {
+  return {
+    type: "SET_PRESET_SETTINGS",
+    value,
+  };
+}

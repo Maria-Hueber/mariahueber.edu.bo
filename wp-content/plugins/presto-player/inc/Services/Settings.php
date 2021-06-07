@@ -75,6 +75,9 @@ class Settings
                             'color' => [
                                 'type' => 'string',
                                 'sanitize_callback' => 'sanitize_hex_color'
+                            ],
+                            'player_css' => [
+                                'type' => 'string'
                             ]
                         ]
                     ]
@@ -82,7 +85,8 @@ class Settings
                 'default' => [
                     'logo' => '',
                     'logo_width' => 150,
-                    'color' => Setting::getDefaultColor()
+                    'color' => Setting::getDefaultColor(),
+                    'player_css' => ''
                 ]
             ]
         );
@@ -101,11 +105,15 @@ class Settings
                             'module_enabled' => [
                                 'type' => 'boolean',
                             ],
+                            'automations' => [
+                                'type' => 'boolean'
+                            ]
                         ]
                     ]
                 ],
                 'default' => [
                     'module_enabled' => false,
+                    'automations' => true
                 ]
             ]
         );
@@ -171,7 +179,34 @@ class Settings
         );
 
         /**
-         * Analytics settings
+         * General settings
+         */
+        \register_setting(
+            'presto_player',
+            'presto_player_presets',
+            [
+                'type'              => 'object',
+                'description'       => __('Preset settings.', 'presto-player'),
+                'show_in_rest'      => [
+                    'name' =>  'presto_player_presets',
+                    'type'  => 'object',
+                    'schema' => [
+                        'properties' => [
+                            'default_player_preset' => [
+                                'type' => 'integer',
+                                'sanitize_callback' => 'intval'
+                            ]
+                        ]
+                    ]
+                ],
+                'default' => [
+                    'default_player_preset' => 1,
+                ]
+            ]
+        );
+
+        /**
+         * Youtube Settings
          */
         \register_setting(
             'presto_player',

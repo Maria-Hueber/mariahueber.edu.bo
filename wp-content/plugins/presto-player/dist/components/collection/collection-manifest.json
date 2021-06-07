@@ -1,6 +1,7 @@
 {
   "entries": [
     "./components/core/features/presto-action-bar/presto-action-bar.js",
+    "./components/core/features/presto-cta-overlay/presto-cta-overlay.js",
     "./components/core/features/presto-email-overlay/presto-email-overlay.js",
     "./components/core/features/presto-muted-overlay/presto-muted-overlay.js",
     "./components/core/player/presto-bunny/presto-bunny.js",
@@ -9,6 +10,7 @@
     "./components/core/player/presto-vimeo/presto-vimeo.js",
     "./components/core/player/presto-youtube/presto-youtube.js",
     "./components/ui/presto-action-bar-ui/presto-action-bar-ui.js",
+    "./components/ui/presto-cta-overlay-ui/presto-cta-overlay-ui.js",
     "./components/ui/presto-email-overlay-ui/presto-email-overlay-ui.js",
     "./components/ui/presto-player-button/presto-player-button.js",
     "./components/ui/presto-skeleton/presto-skeleton.js",

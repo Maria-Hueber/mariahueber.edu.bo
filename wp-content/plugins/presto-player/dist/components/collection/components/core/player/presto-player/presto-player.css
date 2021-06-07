@@ -1708,11 +1708,6 @@ iframe {
 .presto-player__wrapper.is-muted-overlay .plyr__controls {
   display: none;
 }
-.presto-player__wrapper .plyr__caption {
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  white-space: inherit;
-}
 .presto-player__wrapper.is-muted-overlay .plyr .plyr__controls:not(:empty) ~ .plyr__captions {
   transform: translateY(0) !important;
 }

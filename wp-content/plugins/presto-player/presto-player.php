@@ -4,7 +4,7 @@
  * Plugin Name: Presto Player
  * Plugin URI: http://prestoplayer.com
  * Description: A beautiful, fast media player for WordPress.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: Presto Made, Inc
  * Text Domain: presto-player
  * Tags: private, video, lms, hls

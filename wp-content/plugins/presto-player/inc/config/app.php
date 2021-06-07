@@ -30,6 +30,7 @@ return [
 
         // integrations
         \PrestoPlayer\Integrations\Kadence::class,
+        // \PrestoPlayer\Integrations\Divi\Divi::class,
         \PrestoPlayer\Integrations\Elementor\Elementor::class,
         \PrestoPlayer\Integrations\BeaverBuilder\BeaverBuilder::class,
         \PrestoPlayer\Integrations\LearnDash\LearnDash::class,

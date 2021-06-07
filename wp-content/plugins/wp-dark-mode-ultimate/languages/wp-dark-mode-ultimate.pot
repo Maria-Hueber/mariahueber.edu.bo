@@ -1,0 +1,95 @@
+# Copyright (C) 2020 wp-dark-mode-ultimate
+# This file is distributed under the same license as the wp-dark-mode-ultimate package.
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-dark-mode-ultimate\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/base.php:3, plugin.php:16, wp-dark-mode-pro/includes/base.php:3, wp-dark-mode-pro/plugin.php:4
+msgid "You can't access this page"
+msgstr ""
+
+#: includes/base.php:127, wp-dark-mode-pro/includes/base.php:133
+msgid "Unsupported PHP version Min required PHP Version: \"%s\""
+msgstr ""
+
+#. translators: 1: Plugin name 2: WP Dark Mode 3: Elementor installation link
+#: includes/base.php:134, wp-dark-mode-pro/includes/base.php:146
+msgid "%1$s requires %2$s to be installed and activated to function properly. %3$s"
+msgstr ""
+
+#: includes/base.php:135
+msgid "WP Dark Mode Ultimate"
+msgstr ""
+
+#: includes/base.php:136, wp-dark-mode-pro/includes/base.php:148, wp-dark-mode-pro/includes/class-widget.php:24
+msgid "WP Dark Mode"
+msgstr ""
+
+#: includes/base.php:138, wp-dark-mode-pro/includes/base.php:150
+msgid "Please click on this link and install WP Dark Mode"
+msgstr ""
+
+#: includes/base.php:210, wp-dark-mode-pro/includes/base.php:202
+msgid "Settings"
+msgstr ""
+
+#: includes/base.php:215, wp-dark-mode-pro/includes/base.php:210
+msgid "Activate License"
+msgstr ""
+
+#: includes/class-hooks.php:54
+msgid "Remember Dark Mode"
+msgstr ""
+
+#: includes/class-hooks.php:55
+msgid "If remember dark mode is on,  browser remembers the user's selected mode and shows it to them when they re-open the browser"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/base.php:147
+msgid "WP Dark Mode PRO"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-hooks.php:50
+msgid "Includes Elements"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-hooks.php:51
+msgid "Add comma separated CSS selectors (classes, ids) to to apply dark mode. Only the elements within the selectors applied by dark mode."
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-widget.php:21
+msgid "Display dark mode switcher button."
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-widget.php:63
+msgid "Title:"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-widget.php:95
+msgid "Position Alignment:"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-widget.php:99
+msgid "Left"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-widget.php:102
+msgid "Center"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-widget.php:105
+msgid "Right"
+msgstr ""
+
+#: wp-dark-mode-pro/includes/class-widget.php:108
+msgid "Choose the button alignment."
+msgstr ""

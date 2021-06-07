@@ -13,7 +13,7 @@ import {
   PrestoEmailOverlayUi,
   PrestoPlayerButton,
   PrestoYoutubeSubscribeButton,
-} from "../../web-components/dist/custom-elements";
+} from "@presto-player/components/dist/custom-elements";
 
 // needed
 customElements.define("presto-player", PrestoPlayer);

@@ -263,7 +263,7 @@ export class PrestoPlayerButton {
         "text": "Tells the browser where to open the link. Only used when `href` is set."
       },
       "attribute": "target",
-      "reflect": false
+      "reflect": true
     },
     "download": {
       "type": "string",

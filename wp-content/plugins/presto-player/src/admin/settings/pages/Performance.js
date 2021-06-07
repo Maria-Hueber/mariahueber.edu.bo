@@ -63,6 +63,26 @@ export default () => {
             </Notice>
           )}
         </div>
+        <ToggleControl
+          className={"presto-player__setting--module-enabled"}
+          option={{
+            id: "automations",
+            name: __(
+              "Enable Ajax Requests for Progress Integrations",
+              "presto-player"
+            ),
+            help: __(
+              "Keep this on unless you do not plan on using automation, LMS or membership integrations.",
+              "presto-player"
+            ),
+          }}
+          value={
+            settings?.presto_player_performance?.automations === undefined
+              ? true
+              : settings?.presto_player_performance?.automations
+          }
+          optionName="performance"
+        />
       </Group>
     </Page>
   );

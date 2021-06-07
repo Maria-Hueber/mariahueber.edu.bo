@@ -344,6 +344,7 @@ progress.presto-progress::-webkit-progress-value {
     .presto-player {
       &__wrapper {
         max-width: 600px;
+        width: 100%;
         margin: auto;
       }
     }

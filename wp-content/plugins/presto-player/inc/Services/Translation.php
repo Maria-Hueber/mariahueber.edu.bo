@@ -108,6 +108,7 @@ class Translation implements Service
                 576 => __('SD', 'presto-player'),
                 480 => __('SD', 'presto-player'),
             ],
+            'auto' => __('AUTO', 'presto-player'),
         ];
     }
 }

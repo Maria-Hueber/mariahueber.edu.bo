@@ -158,6 +158,19 @@ const youtubeReducer = (state = {}, action) => {
 };
 
 /**
+ * General are global and stored in settings
+ * @param {object} state
+ * @param {object} action
+ */
+const presetSettingsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "SET_PRESET_SETTINGS":
+      return action.value;
+  }
+  return state;
+};
+
+/**
  * For fetching the options
  *
  * @param {object} state
@@ -177,6 +190,9 @@ const optionsApi = (state, action) => {
         );
         dispatch("presto-player/player").setYoutube(
           settings.presto_player_youtube
+        );
+        dispatch("presto-player/player").setPresetSettings(
+          settings.presto_player_presets
         );
       });
 
@@ -217,5 +233,6 @@ export default combineReducers({
   proModalReducer,
   brandingReducer,
   youtubeReducer,
+  presetSettingsReducer,
   optionsApi,
 });

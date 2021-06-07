@@ -88,6 +88,7 @@ class Block
         'config',
         'skin',
         'analytics',
+        'automations',
         'provider',
         'video_id',
         'provider_video_id',
@@ -193,65 +194,26 @@ class Block
         // attribute overrides
         $attributes = $this->overrideAttributes($attributes);
 
-        $preset = new Preset(!empty($attributes['preset']) ? $attributes['preset'] : 0);
+        // video id
+        $id = !empty($attributes['id']) ? $attributes['id'] : 0;
+        $attributes['title'] = !empty($id) ? get_the_title($id) : __('Untitled Video', 'presto-player');
 
-        $preset_id = $preset->id;
-        if (empty($preset_id)) {
-            $preset = $preset->findWhere(['slug' => 'default']);
-        }
-
-        $branding = Player::getBranding();
-        $block_alignment = isset($attributes['align']) ? sanitize_text_field($attributes['align']) : '';
-
-        // sanitize with sensible defaults
-        $branding['color'] = !empty($branding['color']) ? sanitize_hex_color($branding['color']) : 'rgba(43,51,63,.7)';
-        $branding['logo_width'] = !empty($branding['logo_width']) ? $branding['logo_width'] : 150;
-        $branding['logo'] = !empty($branding['logo'] && !$preset->hide_logo) ? $branding['logo'] : '';
-        $class = !empty($block_alignment) ? 'align' . $block_alignment : '';
-        $id = (int) !empty($attributes['id']) ? $attributes['id'] : 0;
-
-        $skin = $preset->skin;
-        $playerClass = 'presto-video-id-' . (int) $id;
-        $playerClass .= ' presto-preset-id-' . (int) $preset->id;
-
-        if (!empty($skin)) {
-            $playerClass .= ' skin-' . sanitize_text_field($skin);
-        }
-
-        $caption_style = $preset->caption_style;
-        if (!empty($caption_style)) {
-            $playerClass .= ' caption-style-' . sanitize_html_class($caption_style);
-        }
-
-        if (!empty($attributes['className'])) {
-            $playerClass .= ' ' . (string) $attributes['className'];
-        }
-
-        $styles = '--plyr-color-main: ' . sanitize_hex_color($branding['color']) . '; ';
-        if ($preset->caption_background) {
-            $styles .= '--plyr-captions-background: ' . sanitize_hex_color($preset->caption_background) . '; ';
-        }
-        if ($preset->border_radius) {
-            $styles .= '--presto-player-border-radius: ' . (int) $preset->border_radius . 'px; ';
-        }
-
-        if ($branding['logo_width']) {
-            $styles .= '--presto-player-logo-width: ' . (int) $branding['logo_width'] . 'px; ';
-        }
-        if (!empty($preset->email_collection['border_radius'])) {
-            $styles .= '--presto-player-email-border-radius: ' . (int) $preset->email_collection['border_radius'] . 'px; ';
-        }
-
-        $attributes['title'] = !empty($attributes['id']) ? get_the_title($attributes['id']) : __('Untitled Video', 'presto-player');
+        $preset = $this->getPreset(!empty($attributes['preset']) ? $attributes['preset'] : 0);
+        $branding = $this->getBranding($preset);
+        $class = $this->getClasses($attributes);
+        $playerClass = $this->getPlayerClasses($id, $preset);
+        $styles = $this->getPlayerStyles($preset, $branding);
+        $css = $this->getCSS($id);
 
         // Default config
         $default_config = apply_filters('presto_player/block/default_attributes', [
             'type' => $this->name,
+            'css' => wp_kses_post($css),
             'class' => $class,
             'styles' => $styles,
             'skin' => $preset->skin,
             'playerClass' => $playerClass,
-            'id'    => !empty($attributes['id']) ? $attributes['id'] : 0,
+            'id'    => $id,
             'src'    => !empty($attributes['src']) ? $attributes['src'] : '',
             'autoplay' => !empty($attributes['autoplay']),
             'playsInline' => !empty($attributes['playsInline']),
@@ -269,12 +231,134 @@ class Block
             'blockAttributes' => $attributes,
             'provider' => $this->name,
             'analytics' => Setting::get('analytics', 'enable', false),
+            'automations' => Setting::get('performance', 'automations', true),
         ], $attributes);
 
         return wp_parse_args(
             $this->sanitizeAttributes($attributes, $default_config),
             $default_config
         );
+    }
+
+    /**
+     * Get CSS from settings 
+     * Validates before output
+     *
+     * @param integer $id
+     * @return string
+     */
+    public function getCSS($id)
+    {
+        return apply_filters(
+            'presto_player/player/css',
+            Utility::sanitizeCSS(
+                Setting::get('branding', 'player_css'),
+                $id
+            )
+        );
+    }
+
+    /**
+     * Gets the preset
+     *
+     * @param integer $id Preset ID
+     * @return \PrestoPlayer\Models\Preset
+     */
+    public function getPreset($id)
+    {
+        $preset = new Preset(!empty($id) ? $id : 0);
+        $preset_id = $preset->id;
+
+        if (empty($preset_id)) {
+            $preset = $preset->findWhere(['slug' => 'default']);
+        }
+
+        return $preset;
+    }
+
+    /**
+     * Get player branding
+     *
+     * @param \PrestoPlayer\Models\Preset $preset
+     * @return array
+     */
+    public function getBranding($preset)
+    {
+        $branding = Player::getBranding();
+
+        // sanitize with sensible defaults
+        $branding['color'] = !empty($branding['color']) ? sanitize_hex_color($branding['color']) : 'rgba(43,51,63,.7)';
+        $branding['logo_width'] = !empty($branding['logo_width']) ? $branding['logo_width'] : 150;
+        $branding['logo'] = !empty($branding['logo'] && !$preset->hide_logo) ? $branding['logo'] : '';
+
+        return $branding;
+    }
+
+    /**
+     * Get block classes
+     *
+     * @param array $attributes
+     * @return string
+     */
+    public function getClasses($attributes)
+    {
+        $block_alignment = isset($attributes['align']) ? sanitize_text_field($attributes['align']) : '';
+        return !empty($block_alignment) ? 'align' . $block_alignment : '';
+    }
+
+    /**
+     * Get player classes
+     *
+     * @param integer $id
+     * @param \PrestoPlayer\Models\Preset $preset
+     * @return string
+     */
+    public function getPlayerClasses($id, $preset)
+    {
+        $skin = $preset->skin;
+        $playerClass = 'presto-video-id-' . (int) $id;
+        $playerClass .= ' presto-preset-id-' . (int) $preset->id;
+
+        if (!empty($skin)) {
+            $playerClass .= ' skin-' . sanitize_text_field($skin);
+        }
+
+        $caption_style = $preset->caption_style;
+        if (!empty($caption_style)) {
+            $playerClass .= ' caption-style-' . sanitize_html_class($caption_style);
+        }
+
+        if (!empty($attributes['className'])) {
+            $playerClass .= ' ' . (string) $attributes['className'];
+        }
+
+        return $playerClass;
+    }
+
+    /**
+     * Get player styles
+     *
+     * @param \PrestoPlayer\Models\Preset $preset
+     * @param array $branding
+     * @return string
+     */
+    public function getPlayerStyles($preset, $branding)
+    {
+        $styles = '--plyr-color-main: ' . sanitize_hex_color($branding['color']) . '; ';
+        if ($preset->caption_background) {
+            $styles .= '--plyr-captions-background: ' . sanitize_hex_color($preset->caption_background) . '; ';
+        }
+        if ($preset->border_radius) {
+            $styles .= '--presto-player-border-radius: ' . (int) $preset->border_radius . 'px; ';
+        }
+
+        if ($branding['logo_width']) {
+            $styles .= '--presto-player-logo-width: ' . (int) $branding['logo_width'] . 'px; ';
+        }
+        if (!empty($preset->email_collection['border_radius'])) {
+            $styles .= '--presto-player-email-border-radius: ' . (int) $preset->email_collection['border_radius'] . 'px; ';
+        }
+        return $styles;
     }
 
     /**

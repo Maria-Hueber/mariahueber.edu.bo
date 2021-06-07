@@ -24,6 +24,7 @@ import Controls from "./Controls";
 import Behavior from "./Behavior";
 import Style from "./Style";
 import Email from "./Email";
+import CTA from "./CTA";
 import ActionBar from "./ActionBar";
 import Menu from "@/admin/ui/Menu";
 import Preview from "./Preview";
@@ -62,6 +63,8 @@ function EditPlayerPreset({
     hide_youtube: false,
     lazy_load_youtube: false,
 
+    // features
+    cta: {},
     email_collection: {},
     action_bar: {},
   },
@@ -179,6 +182,12 @@ function EditPlayerPreset({
       title: __("Email Capture", "presto-player"),
       icon: <Icon icon="email" />,
       component: <Email updateState={updateState} state={state} />,
+    },
+    {
+      name: "cta",
+      title: __("Call To Action", "presto-player"),
+      icon: <Icon icon="megaphone" />,
+      component: <CTA updateState={updateState} state={state} />,
     },
     {
       name: "action_bar",

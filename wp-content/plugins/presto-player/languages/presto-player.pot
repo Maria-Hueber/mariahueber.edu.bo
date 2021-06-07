@@ -7,11 +7,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-24T15:35:23+00:00\n"
+"POT-Creation-Date: 2021-06-02T17:57:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 
 #: admin/analytics/components/DatePicker.js:22
+#: admin/blocks/shared/components/ColorPopup.js:67
 #: admin/blocks/shared/placeholder.js:53
 msgid "Apply"
 msgstr ""
@@ -20,9 +21,10 @@ msgstr ""
 #: admin/blocks/blocks/bunny/popup/stream/CollectionHeader.js:98
 #: admin/blocks/blocks/bunny/popup/stream/collections/CreateCollection.js:79
 #: admin/blocks/blocks/bunny/popup/stream/Sidebar.js:158
+#: admin/blocks/shared/components/ColorPopup.js:64
 #: admin/blocks/shared/placeholder.js:152
 #: admin/blocks/shared/placeholder.js:156
-#: admin/blocks/shared/presets/Edit.js:288
+#: admin/blocks/shared/presets/Edit.js:297
 #: admin/blocks/shared/presets/parts/YoutubeChannelId.js:100
 #: admin/blocks/shared/presets/Preset.js:199
 #: admin/settings/components/Integration.js:117
@@ -122,13 +124,13 @@ msgid "Learn More"
 msgstr ""
 
 #: admin/analytics/pages/Dashboard.js:20
-#: admin/settings/pages/General.js:144
+#: admin/settings/pages/General.js:118
 #: Services/Menu.php:49
 #: Services/Menu.php:50
 msgid "Analytics"
 msgstr ""
 
-#: admin/analytics/pages/Video.js:66
+#: admin/analytics/pages/Video.js:126
 msgid "Back to Dashboard"
 msgstr ""
 
@@ -217,7 +219,7 @@ msgid "Add or select a Bunny.net video"
 msgstr ""
 
 #: admin/blocks/blocks/bunny/edit.js:429
-#: admin/blocks/blocks/hosted/edit.js:220
+#: admin/blocks/blocks/hosted/edit.js:213
 #: admin/blocks/blocks/vimeo/edit.js:130
 #: admin/blocks/blocks/youtube/edit.js:124
 #: admin/blocks/shared/branding/index.js:88
@@ -319,7 +321,7 @@ msgstr ""
 
 #: admin/blocks/blocks/bunny/popup/stream/Sidebar.js:137
 #: admin/settings/components/Integration.js:96
-#: admin/settings/pages/General.js:202
+#: admin/settings/pages/General.js:212
 msgid "Are you sure?"
 msgstr ""
 
@@ -430,15 +432,15 @@ msgstr ""
 msgid "Setting up private video library. This make take a few moments..."
 msgstr ""
 
-#: admin/blocks/blocks/hosted/edit.js:123
+#: admin/blocks/blocks/hosted/edit.js:116
 msgid "Get HLS Streaming and more with Presto Player Pro!"
 msgstr ""
 
-#: admin/blocks/blocks/hosted/edit.js:130
+#: admin/blocks/blocks/hosted/edit.js:123
 msgid "Stream HLS links and more with Presto Player Pro."
 msgstr ""
 
-#: admin/blocks/blocks/hosted/edit.js:139
+#: admin/blocks/blocks/hosted/edit.js:132
 msgid "Upgrade"
 msgstr ""
 
@@ -517,7 +519,7 @@ msgid "Video"
 msgstr ""
 
 #: admin/blocks/blocks/reusable-edit/index.js:123
-#: admin/blocks/shared/presets/Behavior.js:105
+#: admin/blocks/shared/presets/Behavior.js:103
 msgid "Youtube"
 msgstr ""
 
@@ -652,7 +654,7 @@ msgid "Remove"
 msgstr ""
 
 #: admin/blocks/shared/branding/index.js:114
-#: admin/settings/pages/General.js:73
+#: admin/settings/pages/General.js:91
 msgid "Logo Max Width"
 msgstr ""
 
@@ -676,8 +678,13 @@ msgstr ""
 msgid "Add Chapter"
 msgstr ""
 
+#: admin/blocks/shared/components/ColorPopup.js:47
+#: Services/Translation.php:99
+msgid "Reset"
+msgstr ""
+
 #: admin/blocks/shared/components/ProBadge.js:5
-#: admin/settings/pages/General.js:57
+#: admin/settings/pages/General.js:75
 msgid "Pro"
 msgstr ""
 
@@ -757,13 +764,14 @@ msgid "Add Youtube Channel Id"
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:93
-#: admin/blocks/shared/presets/Edit.js:185
+#: admin/blocks/shared/presets/Edit.js:194
 msgid "Action Bar"
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:97
-#: admin/blocks/shared/presets/Email.js:35
-#: admin/settings/pages/General.js:156
+#: admin/blocks/shared/presets/CTA.js:82
+#: admin/blocks/shared/presets/Email.js:50
+#: admin/settings/pages/General.js:130
 #: admin/settings/pages/Integrations.js:239
 msgid "Enable"
 msgstr ""
@@ -773,8 +781,29 @@ msgid "Show an action bar below your video while it's playing."
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:114
-#: admin/blocks/shared/presets/Email.js:52
+#: admin/blocks/shared/presets/CTA.js:99
+#: admin/blocks/shared/presets/Email.js:67
 msgid "Display At (Percentage)"
+msgstr ""
+
+#: admin/blocks/shared/presets/ActionBar.js:124
+#: admin/blocks/shared/presets/CTA.js:109
+#: admin/blocks/shared/presets/Email.js:77
+#: Services/Translation.php:96
+msgid "Start"
+msgstr ""
+
+#: admin/blocks/shared/presets/ActionBar.js:128
+#: admin/blocks/shared/presets/CTA.js:113
+#: admin/blocks/shared/presets/Email.js:81
+msgid "50% Watched"
+msgstr ""
+
+#: admin/blocks/shared/presets/ActionBar.js:132
+#: admin/blocks/shared/presets/CTA.js:117
+#: admin/blocks/shared/presets/Email.js:85
+#: Services/Translation.php:97
+msgid "End"
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:142
@@ -819,11 +848,12 @@ msgid "Show your follower count."
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:218
+#: admin/blocks/shared/presets/CTA.js:244
 msgid "Button Text"
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:219
-#: admin/blocks/shared/presets/Email.js:123
+#: admin/blocks/shared/presets/Email.js:162
 msgid "Submit button text"
 msgstr ""
 
@@ -832,7 +862,8 @@ msgid "Button Link"
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:239
-#: admin/blocks/shared/presets/Email.js:141
+#: admin/blocks/shared/presets/CTA.js:262
+#: admin/blocks/shared/presets/Email.js:180
 #: admin/blocks/shared/presets/Style.js:31
 msgid "Round Corners"
 msgstr ""
@@ -842,68 +873,74 @@ msgid "Border radius of the button"
 msgstr ""
 
 #: admin/blocks/shared/presets/ActionBar.js:252
+#: admin/blocks/shared/presets/CTA.js:276
 msgid "Button Color"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:18
-#: admin/blocks/shared/presets/Edit.js:167
+#: admin/blocks/shared/presets/ActionBar.js:267
+#: admin/blocks/shared/presets/CTA.js:291
+msgid "Button Text Color"
+msgstr ""
+
+#: admin/blocks/shared/presets/Behavior.js:16
+#: admin/blocks/shared/presets/Edit.js:170
 msgid "Behavior"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:22
+#: admin/blocks/shared/presets/Behavior.js:20
 msgid "Auto-Hide Controls"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:23
+#: admin/blocks/shared/presets/Behavior.js:21
 msgid "Hide video controls automatically after 2 seconds of no mouse movement."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:48
+#: admin/blocks/shared/presets/Behavior.js:46
 msgid "Save Play Position"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:49
+#: admin/blocks/shared/presets/Behavior.js:47
 msgid "Saves the user's play position so when they come back to the page they can continue the video from where they left off."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:61
+#: admin/blocks/shared/presets/Behavior.js:59
 msgid "Captions On By Default"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:62
+#: admin/blocks/shared/presets/Behavior.js:60
 msgid "Toggles if captions should be active by default."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:74
+#: admin/blocks/shared/presets/Behavior.js:72
 msgid "Sticky On Scroll"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:75
+#: admin/blocks/shared/presets/Behavior.js:73
 msgid "Stick videos to the side of the screen when the page is scrolled and the video is playing."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:88
+#: admin/blocks/shared/presets/Behavior.js:86
 msgid "Choose a position for your sticky player."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:109
+#: admin/blocks/shared/presets/Behavior.js:107
 msgid "Hide Youtube UI (Experimental)"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:110
+#: admin/blocks/shared/presets/Behavior.js:108
 msgid "Hides the Youtube logo and related videos."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:122
+#: admin/blocks/shared/presets/Behavior.js:120
 msgid "Lazy Load Videos"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:123
+#: admin/blocks/shared/presets/Behavior.js:121
 msgid "Improves page loading performance by only loading the video when clicked."
 msgstr ""
 
 #: admin/blocks/shared/presets/Controls.js:11
-#: admin/blocks/shared/presets/Edit.js:161
+#: admin/blocks/shared/presets/Edit.js:164
 msgid "Controls"
 msgstr ""
 
@@ -986,113 +1023,188 @@ msgstr ""
 msgid "Adds a button to allow the player to be fullscreen."
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:79
-msgid "The preset could not be saved. Please reload the page and try again."
+#: admin/blocks/shared/presets/CTA.js:38
+msgid "Want to learn more?"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:114
-msgid "Preset updated!"
+#: admin/blocks/shared/presets/CTA.js:40
+msgid "Click Here"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:141
-msgid "Preset created!"
+#: admin/blocks/shared/presets/CTA.js:78
+#: admin/blocks/shared/presets/Edit.js:188
+msgid "Call To Action"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:152
-#: Models/Preset.php:177
-msgid "You must enter a name for the preset."
+#: admin/blocks/shared/presets/CTA.js:83
+#: admin/blocks/shared/presets/Email.js:51
+msgid "Show an email collection form and message over your video."
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:173
-#: admin/blocks/shared/presets/Email.js:137
+#: admin/blocks/shared/presets/CTA.js:134
+msgid "You already have an email capture set display at the same time."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:145
+msgid "Disable Email Capture"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:153
+msgid "Show Rewatch Button"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:154
+msgid "Show a rewatch button at the end of the video."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:169
+#: admin/blocks/shared/presets/Email.js:119
+msgid "Allow Skipping"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:170
+msgid "Let the user continue watching the video."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:186
+#: Integrations/Elementor/VideoWidget.php:169
+#: Integrations/Elementor/VideoWidget.php:190
+msgid "Link"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:200
+#: admin/blocks/shared/presets/Email.js:132
+msgid "Headline"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:201
+#: admin/blocks/shared/presets/Email.js:133
+msgid "The headline for your form."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:213
+#: admin/blocks/shared/presets/Email.js:145
+msgid "Bottom Text"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:214
+#: admin/blocks/shared/presets/Email.js:146
+msgid "Text displayed below the form. HTML allowed."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:229
+msgid "Show Button"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:230
+msgid "Show a call to action button."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:247
+msgid "Button text for the Call To Action"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:258
+#: admin/blocks/shared/presets/Edit.js:176
+#: admin/blocks/shared/presets/Email.js:176
 #: admin/blocks/shared/presets/Style.js:17
 msgid "Style"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:179
-#: admin/blocks/shared/presets/Email.js:31
+#: admin/blocks/shared/presets/CTA.js:263
+#: admin/blocks/shared/presets/Email.js:181
+msgid "Border radius of form elements."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:307
+msgid "Background Opacity"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:308
+msgid "Opacity percentage of the cover background."
+msgstr ""
+
+#: admin/blocks/shared/presets/Edit.js:82
+msgid "The preset could not be saved. Please reload the page and try again."
+msgstr ""
+
+#: admin/blocks/shared/presets/Edit.js:117
+msgid "Preset updated!"
+msgstr ""
+
+#: admin/blocks/shared/presets/Edit.js:144
+msgid "Preset created!"
+msgstr ""
+
+#: admin/blocks/shared/presets/Edit.js:155
+#: Models/Preset.php:180
+msgid "You must enter a name for the preset."
+msgstr ""
+
+#: admin/blocks/shared/presets/Edit.js:182
+#: admin/blocks/shared/presets/Email.js:46
 #: admin/settings/pages/Integrations.js:318
 msgid "Email Capture"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:200
+#: admin/blocks/shared/presets/Edit.js:209
 msgid "Edit A Video Preset"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:201
+#: admin/blocks/shared/presets/Edit.js:210
 msgid "Create A New Video Preset"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:211
+#: admin/blocks/shared/presets/Edit.js:220
 msgid "Preset Name"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:213
+#: admin/blocks/shared/presets/Edit.js:222
 msgid "Enter a preset name..."
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:223
+#: admin/blocks/shared/presets/Edit.js:232
 msgid "Customize"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:235
+#: admin/blocks/shared/presets/Edit.js:244
 msgid "Skin"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:240
+#: admin/blocks/shared/presets/Edit.js:249
 msgid "Basic"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:241
+#: admin/blocks/shared/presets/Edit.js:250
 msgid "Stacked"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:298
+#: admin/blocks/shared/presets/Edit.js:307
 msgid "Update Preset"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:299
+#: admin/blocks/shared/presets/Edit.js:308
 msgid "Create Preset"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:36
-msgid "Show an email collection form and message over your video."
+#: admin/blocks/shared/presets/Email.js:101
+msgid "You already have a Call To Action set display at the same time."
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:80
-msgid "Allow Skipping"
+#: admin/blocks/shared/presets/Email.js:112
+msgid "Disable Call To Action"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:81
+#: admin/blocks/shared/presets/Email.js:120
 msgid "Let the viewer skip"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:93
-msgid "Headline"
-msgstr ""
-
-#: admin/blocks/shared/presets/Email.js:94
-msgid "The headline for your form."
-msgstr ""
-
-#: admin/blocks/shared/presets/Email.js:106
-msgid "Bottom Text"
-msgstr ""
-
-#: admin/blocks/shared/presets/Email.js:107
-msgid "Text displayed below the form. HTML allowed."
-msgstr ""
-
-#: admin/blocks/shared/presets/Email.js:122
+#: admin/blocks/shared/presets/Email.js:161
 msgid "Play Button Text"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:129
+#: admin/blocks/shared/presets/Email.js:168
 msgid "Integrate"
-msgstr ""
-
-#: admin/blocks/shared/presets/Email.js:142
-msgid "Border radius of form elements."
 msgstr ""
 
 #: admin/blocks/shared/presets/index.js:59
@@ -1185,17 +1297,18 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: admin/blocks/shared/presets/Preview.js:36
+#: admin/blocks/shared/presets/Preview.js:35
 #: Services/Translation.php:64
 msgid "Enter your email to watch this video."
 msgstr ""
 
-#: admin/blocks/shared/presets/Preview.js:42
+#: admin/blocks/shared/presets/Preview.js:41
+#: admin/blocks/shared/presets/Preview.js:76
 #: Services/Translation.php:62
 msgid "Skip"
 msgstr ""
 
-#: admin/blocks/shared/presets/Preview.js:44
+#: admin/blocks/shared/presets/Preview.js:43
 #: Services/Translation.php:63
 msgid "Email address"
 msgstr ""
@@ -1408,7 +1521,7 @@ msgid "Must be logged in"
 msgstr ""
 
 #: admin/settings/app.js:75
-#: admin/settings/pages/General.js:38
+#: admin/settings/pages/General.js:56
 msgid "General"
 msgstr ""
 
@@ -1418,7 +1531,6 @@ msgid "Integrations"
 msgstr ""
 
 #: admin/settings/app.js:93
-#: admin/settings/pages/General.js:100
 #: admin/settings/pages/Performance.js:18
 #: admin/settings/pages/Performance.js:22
 msgid "Performance"
@@ -1456,103 +1568,99 @@ msgstr ""
 msgid "Okay"
 msgstr ""
 
-#: admin/settings/pages/General.js:26
+#: admin/settings/pages/General.js:25
 #: admin/settings/pages/Integrations.js:31
 msgid "Pro Feature"
 msgstr ""
 
-#: admin/settings/pages/General.js:27
+#: admin/settings/pages/General.js:26
 #: admin/settings/pages/Integrations.js:32
 msgid "Unlock Presto Player Pro"
 msgstr ""
 
-#: admin/settings/pages/General.js:28
+#: admin/settings/pages/General.js:27
 #: admin/settings/pages/Integrations.js:33
 msgid "Get this feature and more with the Pro version of Presto Player!"
 msgstr ""
 
-#: admin/settings/pages/General.js:39
+#: admin/settings/pages/General.js:57
 msgid "Branding, analytics and uninstall data."
 msgstr ""
 
-#: admin/settings/pages/General.js:45
+#: admin/settings/pages/General.js:63
 msgid "Branding"
 msgstr ""
 
-#: admin/settings/pages/General.js:46
+#: admin/settings/pages/General.js:64
 msgid "Global player branding options"
 msgstr ""
 
-#: admin/settings/pages/General.js:54
+#: admin/settings/pages/General.js:72
 msgid "Logo"
 msgstr ""
 
-#: admin/settings/pages/General.js:90
+#: admin/settings/pages/General.js:108
 msgid "Brand Color"
 msgstr ""
 
-#: admin/settings/pages/General.js:101
-#: admin/settings/pages/Performance.js:23
-msgid "Performance options for player loading."
-msgstr ""
-
-#: admin/settings/pages/General.js:111
-#: admin/settings/pages/Performance.js:33
-msgid "Dynamically Load JavaScript"
-msgstr ""
-
-#: admin/settings/pages/General.js:112
-#: admin/settings/pages/Performance.js:34
-msgid "Dynamically load javascript modules on the page which can significantly reduce javascript size and increase performance."
-msgstr ""
-
-#: admin/settings/pages/General.js:130
-#: admin/settings/pages/Performance.js:52
-msgid "Please Note"
-msgstr ""
-
-#: admin/settings/pages/General.js:133
-msgid "You may need to exclude the player script from combining, as well as enable CORS requests for some CDNs"
-msgstr ""
-
-#: admin/settings/pages/General.js:146
+#: admin/settings/pages/General.js:120
 #: admin/settings/pages/Integrations.js:229
 msgid "Analytics settings for video plays, watch times and more."
 msgstr ""
 
-#: admin/settings/pages/General.js:157
+#: admin/settings/pages/General.js:131
 msgid "Enable view analytics for your videos"
 msgstr ""
 
-#: admin/settings/pages/General.js:170
+#: admin/settings/pages/General.js:144
 msgid "Auto-Purge Data (recommended)"
 msgstr ""
 
-#: admin/settings/pages/General.js:171
+#: admin/settings/pages/General.js:145
 msgid "Automatically purge data older than 90 days."
 msgstr ""
 
-#: admin/settings/pages/General.js:188
-msgid "Uninstall Options"
+#: admin/settings/pages/General.js:162
+msgid "Presets"
 msgstr ""
 
-#: admin/settings/pages/General.js:189
-msgid "Options to remove data on uninstall."
+#: admin/settings/pages/General.js:164
+msgid "Media presets settings."
+msgstr ""
+
+#: admin/settings/pages/General.js:171
+msgid "Select default preset."
+msgstr ""
+
+#: admin/settings/pages/General.js:183
+msgid "Custom CSS"
+msgstr ""
+
+#: admin/settings/pages/General.js:184
+msgid "Quickly add custom css to the player web component."
 msgstr ""
 
 #: admin/settings/pages/General.js:198
-msgid "Remove data on uninstall"
+msgid "Uninstall Options"
 msgstr ""
 
 #: admin/settings/pages/General.js:199
+msgid "Options to remove data on uninstall."
+msgstr ""
+
+#: admin/settings/pages/General.js:208
+msgid "Remove data on uninstall"
+msgstr ""
+
+#: admin/settings/pages/General.js:209
 msgid "This removes all data on uninstall."
 msgstr ""
 
-#: admin/settings/pages/General.js:201
+#: admin/settings/pages/General.js:211
 msgid "Caution: Data Loss"
 msgstr ""
 
-#: admin/settings/pages/General.js:203
+#: admin/settings/pages/General.js:213
 msgid "Are you sure you want to remove all the data from this plugin? This is irreversible!"
 msgstr ""
 
@@ -1849,11 +1957,35 @@ msgstr ""
 msgid "Player performance preferences."
 msgstr ""
 
+#: admin/settings/pages/Performance.js:23
+msgid "Performance options for player loading."
+msgstr ""
+
+#: admin/settings/pages/Performance.js:33
+msgid "Dynamically Load JavaScript"
+msgstr ""
+
+#: admin/settings/pages/Performance.js:34
+msgid "Dynamically load javascript modules on the page which can significantly reduce javascript size and increase performance."
+msgstr ""
+
+#: admin/settings/pages/Performance.js:52
+msgid "Please Note"
+msgstr ""
+
 #: admin/settings/pages/Performance.js:55
 msgid "You may need to exclude the player script from combining, as well as enable CORS requests for some CDNs."
 msgstr ""
 
-#: admin/settings/settings.js:63
+#: admin/settings/pages/Performance.js:70
+msgid "Enable Ajax Requests for Progress Integrations"
+msgstr ""
+
+#: admin/settings/pages/Performance.js:74
+msgid "Keep this on unless you do not plan on using automation, LMS or membership integrations."
+msgstr ""
+
+#: admin/settings/settings.js:62
 msgid "Settings saved."
 msgstr ""
 
@@ -1924,6 +2056,18 @@ msgstr ""
 msgid "Edit Video"
 msgstr ""
 
+#: Integrations/Divi/includes/modules/HelloWorld/HelloWorld.php:15
+msgid "Hello World"
+msgstr ""
+
+#: Integrations/Divi/includes/modules/HelloWorld/HelloWorld.php:21
+msgid "Content"
+msgstr ""
+
+#: Integrations/Divi/includes/modules/HelloWorld/HelloWorld.php:24
+msgid "Content entered here will appear inside the module."
+msgstr ""
+
 #: Integrations/Elementor/ReusableVideoWidget.php:123
 msgid "Choose A Video"
 msgstr ""
@@ -1952,11 +2096,6 @@ msgstr ""
 
 #: Integrations/Elementor/VideoWidget.php:161
 msgid "Self Hosted"
-msgstr ""
-
-#: Integrations/Elementor/VideoWidget.php:169
-#: Integrations/Elementor/VideoWidget.php:190
-msgid "Link"
 msgstr ""
 
 #: Integrations/Elementor/VideoWidget.php:178
@@ -2043,7 +2182,7 @@ msgid "Minimal"
 msgstr ""
 
 #: Services/API/RestPresetsController.php:90
-#: Services/API/RestVideosController.php:94
+#: Services/API/RestVideosController.php:100
 msgid "Unique identifier for the object."
 msgstr ""
 
@@ -2075,48 +2214,52 @@ msgstr ""
 msgid "The id of the user object, if author was a user."
 msgstr ""
 
-#: Services/API/RestPresetsController.php:358
+#: Services/API/RestPresetsController.php:403
 msgid "Cannot create preset."
 msgstr ""
 
-#: Services/API/RestPresetsController.php:384
+#: Services/API/RestPresetsController.php:429
 msgid "Cannot update preset."
 msgstr ""
 
-#: Services/API/RestPresetsController.php:406
+#: Services/API/RestPresetsController.php:451
 msgid "This preset could not be trashed."
 msgstr ""
 
-#: Services/API/RestVideosController.php:100
+#: Services/API/RestVideosController.php:106
 msgid "Title of the video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:106
+#: Services/API/RestVideosController.php:112
 msgid "Slug for the video type (one of youtube, vimeo, attachment, link)"
 msgstr ""
 
-#: Services/API/RestVideosController.php:113
+#: Services/API/RestVideosController.php:119
 msgid "External unique id."
 msgstr ""
 
-#: Services/API/RestVideosController.php:119
+#: Services/API/RestVideosController.php:125
 msgid "The id of the attachment."
 msgstr ""
 
-#: Services/API/RestVideosController.php:123
+#: Services/API/RestVideosController.php:129
 msgid "The post the video is attached to."
 msgstr ""
 
-#: Services/API/RestVideosController.php:127
+#: Services/API/RestVideosController.php:133
 msgid "Video source url."
 msgstr ""
 
-#: Services/API/RestVideosController.php:181
+#: Services/API/RestVideosController.php:187
 msgid "Cannot create video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:207
+#: Services/API/RestVideosController.php:213
 msgid "Cannot get video."
+msgstr ""
+
+#: Services/API/RestVideosController.php:244
+msgid "Cannot update video."
 msgstr ""
 
 #: Services/Blocks.php:33
@@ -2164,19 +2307,23 @@ msgstr ""
 msgid "Branding settings."
 msgstr ""
 
-#: Services/Settings.php:95
+#: Services/Settings.php:99
 msgid "Performance settings."
 msgstr ""
 
-#: Services/Settings.php:121
+#: Services/Settings.php:129
 msgid "Uninstall settings."
 msgstr ""
 
-#: Services/Settings.php:147
+#: Services/Settings.php:155
 msgid "Google Analytics settings."
 msgstr ""
 
-#: Services/Settings.php:181
+#: Services/Settings.php:189
+msgid "Preset settings."
+msgstr ""
+
+#: Services/Settings.php:216
 msgid "Youtube settings."
 msgstr ""
 
@@ -2288,20 +2435,8 @@ msgstr ""
 msgid "Loop"
 msgstr ""
 
-#: Services/Translation.php:96
-msgid "Start"
-msgstr ""
-
-#: Services/Translation.php:97
-msgid "End"
-msgstr ""
-
 #: Services/Translation.php:98
 msgid "All"
-msgstr ""
-
-#: Services/Translation.php:99
-msgid "Reset"
 msgstr ""
 
 #: Services/Translation.php:100
@@ -2329,6 +2464,10 @@ msgstr ""
 #: Services/Translation.php:108
 #: Services/Translation.php:109
 msgid "SD"
+msgstr ""
+
+#: Services/Translation.php:111
+msgid "AUTO"
 msgstr ""
 
 #: Services/VideoPostType.php:73
@@ -2448,30 +2587,30 @@ msgstr ""
 msgid "Show all %s"
 msgstr ""
 
-#: Support/Block.php:245
+#: Support/Block.php:199
 msgid "Untitled Video"
 msgstr ""
 
-#: Support/Utility.php:34
+#: Support/Utility.php:38
 msgid "0 seconds"
 msgstr ""
 
 #. translators: %s: Time duration in hour or hours.
-#: Support/Utility.php:75
+#: Support/Utility.php:79
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: Time duration in minute or minutes.
-#: Support/Utility.php:81
+#: Support/Utility.php:85
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: Time duration in second or seconds.
-#: Support/Utility.php:87
+#: Support/Utility.php:91
 msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] ""
